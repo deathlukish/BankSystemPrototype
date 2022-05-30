@@ -1,0 +1,40 @@
+﻿<Window x:Class="BankSystemPrototype.AddClient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BankSystemPrototype"
+        mc:Ignorable="d"
+        Title="AddClient" Height="450" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="80*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <TextBox x:Name="First" Grid.Column="1" Grid.Row="0" Margin="5" ></TextBox>
+        <TextBox x:Name="Middle" Grid.Column="1" Grid.Row="1" Margin="5" ></TextBox>
+        <TextBox x:Name="Last" Grid.Column="1" Grid.Row="2" Margin="5" ></TextBox>
+        <ComboBox x:Name="cbxDep" Grid.Column="1" Grid.Row="3" Margin="5" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <CheckBox x:Name="chkNoDeposite" Content="Депозитный" Grid.Column="1" Grid.Row="4" Margin="5" ></CheckBox>
+        <CheckBox x:Name="chkDeposite" Content="Не Депозитный" Grid.Column="1" Grid.Row="5" Margin="5"></CheckBox>
+        <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="6" Margin="5,5,5,0"  Height="52" VerticalAlignment="Top"></Button>
+
+    </Grid>
+</Window>
