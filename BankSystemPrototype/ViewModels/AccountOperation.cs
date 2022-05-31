@@ -1,6 +1,7 @@
 ﻿using BankClientOperation.ClientType;
 using BankSystemPrototype;
 using BankSystemPrototype.Commands;
+using BankSystemPrototype.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 
 namespace BankClientOperation
 {
-    public class AccountOperation<T> : INotifyPropertyChanged
+    internal class AccountOperation<T> : ViewModel
         where T : BaseClient
     {
         Repository _Repository = new Repository();
@@ -32,7 +33,6 @@ namespace BankClientOperation
         {
             var _AddClient = new AddClient();
             _AddClient.Show();
-            //MessageBox.Show("sdasdadasdas");
         }
         private bool CanAddClient(object p) => true;
         public AccountOperation()
@@ -81,9 +81,6 @@ namespace BankClientOperation
         public void Replenish()
         {
 
-            //Account.Balance += Sum;
-            //Client.
-
         }
         public void OpenAccount()
         {
@@ -104,20 +101,7 @@ namespace BankClientOperation
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
-        {
-            if (Equals(field, value)) return false;
-            field = value;
-            OnpropertyChanged(PropertyName);
-            return true;
-
-        }
+       
 
     }
 }
