@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         xmlns:clientType="clr-namespace:BankClientOperation;assembly=BankClientOperation"
         xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels" Height="550" Width="800">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
