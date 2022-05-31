@@ -1,4 +1,5 @@
 ﻿using BankClientOperation.ClientType;
+using BankSystemPrototype.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace BankClientOperation
 {
@@ -23,10 +26,16 @@ namespace BankClientOperation
         private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
         private T Client;
+        public ICommand AddClientCommand { get; }
+        private void OnAddClient(object p)
+        {
+            MessageBox.Show("sdasdadasdas");
+        }
+        private bool CanAddClient(object p) => true;
         public AccountOperation()
         {
             GetClients();
-
+            AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
         }
         public BaseAccount SelectedAccountFrom
         {
