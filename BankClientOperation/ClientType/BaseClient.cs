@@ -40,6 +40,19 @@ namespace BankClientOperation
         
         
         }
+        public BaseClient(Guid IdClient, string First, string Middle, string Last, string Town, List<BaseAccount> Accounts, bool IsActive)
+        {
+            this.IdClient = IdClient;
+            this.IsActive = IsActive;
+            this.First = First;
+            this.Middle = Middle;
+            this.Last = Last;
+            this.Town = Town;
+            this.Accounts = Accounts;
+
+
+        }
+
 
     }
 

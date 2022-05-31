@@ -16,25 +16,27 @@ namespace BankClientOperation
         }
 
 
-        public EntityClient(string FirstName, string MiddleName, string LastName, string Town)
+        public EntityClient(string First, string Middle, string Last, string Town):
+            this(Guid.NewGuid(), First, Middle, Last, Town, null, true)
         {
-            this.IdClient = Guid.NewGuid();
-            this.IsActive = true;
-            this.First = FirstName;
-            this.Middle = MiddleName;
-            this.Last = LastName;
-            this.Town = Town;
+            //this.IdClient = Guid.NewGuid();
+            //this.IsActive = true;
+            //this.First = First;
+            //this.Middle = Middle;
+            //this.Last = Last;
+            //this.Town = Town;
 
 
         }
-        public EntityClient(Guid IdClient, string First, string Middle, string Last, string Town, bool IsActive)
+        public EntityClient(Guid IdClient, string First, string Middle, string Last, string Town, List<BaseAccount> Accounts, bool IsActive):
+            base(IdClient, First, Middle, Last, Town, Accounts, IsActive)
         {
-            this.IdClient = IdClient;
-            this.IsActive = IsActive;
-            this.First = First;
-            this.Middle = Middle;
-            this.Last = Last;
-            this.Town = Town;
+            //this.IdClient = IdClient;
+            //this.IsActive = IsActive;
+            //this.First = First;
+            //this.Middle = Middle;
+            //this.Last = Last;
+            //this.Town = Town;
            
 
         }

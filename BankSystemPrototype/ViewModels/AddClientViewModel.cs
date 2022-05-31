@@ -66,14 +66,14 @@ namespace BankSystemPrototype.ViewModels
             {
                 case ClientTypeEnum.Entity:
                     MessageBox.Show("Entity");
-                    repository.AddClient(new EntityClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));                    
+                    repository.AddClient(new EntityClient(FirsName, MiddleName, LastName, Town));                    
                     break;
                 case ClientTypeEnum.Regular:
                     MessageBox.Show("Regular");
-                    repository.AddClient(new RegularClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));
+                    repository.AddClient(new RegularClient(FirsName, MiddleName, LastName, Town));
                     break;
                 case ClientTypeEnum.VIP:
-                    repository.AddClient (new VipClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));
+                    repository.AddClient (new VipClient(FirsName, MiddleName, LastName, Town));
                     MessageBox.Show("VIP");
                     break;
 

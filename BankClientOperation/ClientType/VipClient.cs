@@ -8,41 +8,35 @@ namespace BankClientOperation
 {
     public class VipClient:BaseClient
     {
-
-        public VipClient() { }
-        public VipClient(string FirstName, string MiddleName, string LastName, string Town)
-
+        public VipClient() : base()
         {
-            this.IdClient = Guid.NewGuid();
-            this.First = FirstName;
-            this.Middle = MiddleName;
-            this.Last = LastName;
-            this.Town = Town;
-           
-
-        }
-        public VipClient(Guid IdClient, string FirstName, string MiddleName, string LastName, string Town)
-
-        {
-            this.IdClient = IdClient;
-            this.First = FirstName;
-            this.Middle = MiddleName;
-            this.Last = LastName;
-            this.Town = Town;
-           
-
-        }
-        public VipClient(Guid IdClient, string First, string Middle, string Last, string Town, bool IsActive)
-        {
-            this.IdClient = IdClient;
-            this.IsActive = IsActive;
-            this.First = First;
-            this.Middle = Middle;
-            this.Last = Last;
-            this.Town = Town;
-
 
         }
 
+
+        public VipClient(string First, string Middle, string Last, string Town) :
+            this(Guid.NewGuid(), First, Middle, Last, Town, null, true)
+        {
+            //this.IdClient = Guid.NewGuid();
+            //this.IsActive = true;
+            //this.First = First;
+            //this.Middle = Middle;
+            //this.Last = Last;
+            //this.Town = Town;
+
+
+        }
+        public VipClient(Guid IdClient, string First, string Middle, string Last, string Town, List<BaseAccount> Accounts, bool IsActive) :
+            base(IdClient, First, Middle, Last, Town, Accounts, IsActive)
+        {
+            //this.IdClient = IdClient;
+            //this.IsActive = IsActive;
+            //this.First = First;
+            //this.Middle = Middle;
+            //this.Last = Last;
+            //this.Town = Town;
+
+
+        }
     }
 }
