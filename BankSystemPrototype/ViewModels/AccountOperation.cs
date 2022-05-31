@@ -19,7 +19,7 @@ namespace BankClientOperation
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
         private T _SelectedClientFrom = new(); 
-        private T _SelectedClientTo;
+        private T _SelectedClientTo = new();
         private float _ReplenishSum;
         private T Client;
         private string _FirstName;
@@ -67,11 +67,7 @@ namespace BankClientOperation
         }
         public ObservableCollection<T> Clients
         {
-            get
-            {
-                
-                return _Clients;
-            }
+            get => _Clients;
             set { 
 
                 _Clients = value;
@@ -113,8 +109,6 @@ namespace BankClientOperation
             {
                 _Clients.Add((T)a);
             }
-
-
         }
         
 
