@@ -64,6 +64,7 @@ namespace BankSystemPrototype.ViewModels
         {
 
             repository.AddClient(ClientType, FirsName, MiddleName, LastName, Town);
+            
 
             
         }

@@ -121,12 +121,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox ItemsSource="{Binding AccountsFrom}" SelectedItem="{Binding SelectedAccountFrom}" 
+        <ListBox ItemsSource="{Binding ElementName=ListClientsFrom}" SelectedItem="{Binding SelectedAccountFrom}" 
                  x:Name="ListAccountFrom" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="5,5,5,5">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type clientType:Deposite}">
                     <StackPanel>
-                        <TextBlock Foreground="Red" Text="{Binding OwnerId}" TextBlock.FontSize="10"></TextBlock>
+                        <TextBlock Foreground="Red" Text="{Binding  OwnerId}" TextBlock.FontSize="10"></TextBlock>
                         <TextBlock Foreground="Red" Text="{Binding  Balance}" TextBlock.FontSize="15"></TextBlock>
                         <TextBlock Foreground="Red" Text="{Binding  NumAccount}" TextBlock.FontSize="15"></TextBlock>
                     </StackPanel>
