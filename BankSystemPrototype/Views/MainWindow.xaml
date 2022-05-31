@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BankSystemPrototype"
         mc:Ignorable="d"
         xmlns:clientType="clr-namespace:BankClientOperation;assembly=BankClientOperation"
-        xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels" Height="450" Width="800">
+        xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels" Height="550" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -134,8 +134,9 @@
                 <RowDefinition Height="15*"></RowDefinition>
                 <RowDefinition Height="15*"></RowDefinition>
                 <RowDefinition Height="30*"></RowDefinition>
-                <!--<RowDefinition Height="15*"></RowDefinition>-->
+                <RowDefinition Height="15*"></RowDefinition>
                 <RowDefinition Height="50*"></RowDefinition>
+                
             </Grid.RowDefinitions>
             <GroupBox  Grid.Row="0" Grid.Column="1" Margin="5" Header="Поплнение счета">
                 <UniformGrid  Columns="2">
@@ -158,6 +159,12 @@
                     <TextBlock Text="{Binding SelectedAccountFrom.NumAccount}"></TextBlock>
                     <TextBlock Text="На счет"></TextBlock>
                     <TextBlock Text="{Binding SelectedAccountTo.NumAccount}"></TextBlock>
+                </UniformGrid>
+            </GroupBox>
+            <GroupBox Header="Управление клиентами" Grid.Row="3">
+                <UniformGrid  Columns="2">
+                    <Button  Margin="2" Content="Добавить" Command="{Binding AddClientCommand}"></Button>
+                    <Button  Margin="2" Content="Удалить" Command="{Binding DelClientCommand}"/>
                 </UniformGrid>
             </GroupBox>
             <Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента">
