@@ -67,17 +67,17 @@ namespace BankClientOperation
             }
 
         }
-        public T SelectedClientFrom
-        {
-            get => _SelectedClientFrom;
-            set
-            {
-                Set(ref _SelectedClientFrom, value);
-                AccountsFrom = _Repository.GetAccountsFromClient(SelectedClientFrom.IdClient);
-            }
+        //public T SelectedClientFrom
+        //{
+        //    get => _SelectedClientFrom;
+        //    set
+        //    {
+        //        Set(ref _SelectedClientFrom, value);
+        //        AccountsFrom = _Repository.GetAccountsFromClient(SelectedClientFrom.IdClient);
+        //    }
 
 
-        }
+        //}
         public string FirsName 
         {
             get => _FirstName;

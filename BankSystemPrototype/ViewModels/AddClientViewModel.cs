@@ -61,8 +61,7 @@ namespace BankSystemPrototype.ViewModels
         }
         private void OnAddClient(object p)
         {
-            var Guid = new Guid();
-            
+  
             switch (ClientType)
             {
                 case ClientTypeEnum.Entity:

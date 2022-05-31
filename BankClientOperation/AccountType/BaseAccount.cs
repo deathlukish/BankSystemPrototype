@@ -21,6 +21,7 @@ namespace BankClientOperation
         }
         public bool IsActive { get; set; } = true;
 
+
         public BaseAccount()
         { 
         
