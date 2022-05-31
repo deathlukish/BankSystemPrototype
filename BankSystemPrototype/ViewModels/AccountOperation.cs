@@ -35,11 +35,12 @@ namespace BankClientOperation
         {
             
             SelectedClientFrom.Accounts.Add(new Deposite(SelectedClientFrom.IdClient));
+            _Repository.SaveBase();
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
-          //  if (SelectedClientFrom == null) return false;
+            
             if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new List<BaseAccount>();
             if ((SelectedClientFrom.Accounts.FindAll(e => e is Deposite).Count == 0)) return true;
             else return false;
