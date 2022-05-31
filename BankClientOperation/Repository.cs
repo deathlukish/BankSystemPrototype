@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankClientOperation.ClientType;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -32,7 +33,7 @@ namespace BankClientOperation
         //    foreach (var a in _ClientsBase.Accounts.FindAll(e => e.OwnerId == OwnerId))
         //    {
         //        ObsAccounts.Add(a);
-            
+
         //    }
         //    return ObsAccounts;
         //}
@@ -41,7 +42,7 @@ namespace BankClientOperation
 
         //    _ClientsBase.Add(new Deposite(OwnerID, GenNumAccount(), 0));
         //    JsonBase.SaveBase(_ClientsBase, "./DB.json");
-           
+
 
         //}
         //public void Replish(int NumAccount, float Sum)
@@ -53,29 +54,54 @@ namespace BankClientOperation
 
         //public int GenNumAccount()
         //{
-        //    int NumAccount = 0;
+        //    int NumAccount = 100_000_000;
         //    foreach (var a in _ClientsBase.Accounts)
         //    {
         //        if (a.NumAccount > NumAccount) NumAccount = a.NumAccount;
-            
+
         //    }
         //    NumAccount++;
         //    return NumAccount;
         //}
-        public void AddClient(BaseClient ClientForSave)
-        {
+        //public void AddClient(BaseClient ClientForSave)
+        //{
 
 
-            _ClientsBase.Add(ClientForSave);
-            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+        //    _ClientsBase.Add(ClientForSave);
+        //    JsonBase.SaveBase(_ClientsBase, "./DB.json");
 
 
 
-        }
+        //}
         public void SaveBase()
         {
             JsonBase.SaveBase(_ClientsBase, "./DB.json");
 
         }
+        public void AddClient(ClientTypeEnum ClientType, string First, string Middle, string Last, string Town)
+        {
+            //Guid guid = Guid.NewGuid();
+            //List<BaseAccount> Accounts = new();
+            //if (Deposite) Accounts.Add(new Deposite(guid));
+            //if (NoDeposite) Accounts.Add(new NoDeposite(guid));
+
+            switch (ClientType)
+            {
+                case ClientTypeEnum.Entity:
+
+                    _ClientsBase.Add(new EntityClient(First, Middle, Last, Town));
+                    break;
+                case ClientTypeEnum.Regular:
+
+                    _ClientsBase.Add(new RegularClient( First, Middle, Last, Town));
+                    break;
+                case ClientTypeEnum.VIP:
+                    _ClientsBase.Add(new VipClient(First, Middle, Last, Town));                  
+                    break;
+
+            }
+            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+        }
+
     }
 }

@@ -23,8 +23,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+
 
         </Grid.RowDefinitions>
         <TextBox x:Name="First" Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding FirsName}"></TextBox>
@@ -38,8 +37,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <CheckBox x:Name="chkNoDeposite" Content="Депозитный" Grid.Column="1" Grid.Row="5" Margin="5" ></CheckBox>
-        <CheckBox x:Name="chkDeposite" Content="Не Депозитный" Grid.Column="1" Grid.Row="6" Margin="5"></CheckBox>
+        
         <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="7" Margin="5"  Height="52" VerticalAlignment="Top" Command="{Binding AddClient}"></Button>
 
     </Grid>
