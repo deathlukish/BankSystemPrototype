@@ -1,4 +1,5 @@
 ﻿using BankClientOperation.ClientType;
+using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,9 @@ namespace BankClientOperation
         public ICommand AddClientCommand { get; }
         private void OnAddClient(object p)
         {
-            MessageBox.Show("sdasdadasdas");
+            var _AddClient = new AddClient();
+            _AddClient.Show();
+            //MessageBox.Show("sdasdadasdas");
         }
         private bool CanAddClient(object p) => true;
         public AccountOperation()
