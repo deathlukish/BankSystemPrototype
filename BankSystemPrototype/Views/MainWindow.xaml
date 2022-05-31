@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BankSystemPrototype"
         mc:Ignorable="d"
         xmlns:clientType="clr-namespace:BankClientOperation;assembly=BankClientOperation"
-        xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels" Height="550" Width="800">
+        xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels" 
+        Height="550" Width="800">
     <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>-->
@@ -152,7 +153,7 @@
             </GroupBox>
             <GroupBox  Grid.Row="1" Grid.Column="1" Margin="5" Header="Операции над счетами">
                 <UniformGrid  Columns="3">
-                    <Button  Margin="2" Content="Открыть Депозит" Command="{Binding ReplenishCommand}"/>
+                    <Button  Margin="2" Content="Открыть Депозит" Command="{Binding OpenDeposite}"/>
                     <Button  Margin="2" Content="Открыть неДепозит" Command="{Binding ReplenishCommand}"/>
                     <Button  Margin="2" Content="Закрыть" Command="{Binding ReplenishCommand}"/>
                 </UniformGrid>
@@ -173,20 +174,18 @@
                     <Button  Margin="2" Content="Удалить" Command="{Binding DelClientCommand}"/>
                 </UniformGrid>
             </GroupBox>
-            <Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента">
-                <UniformGrid  Columns="2">
+            <Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента" >
+                <UniformGrid  Columns="2" DataContext="{Binding Path=Clients}">
                     <TextBlock Margin="2" Text="Имя"></TextBlock>
-                    <TextBox Margin="2"/>
+                    <TextBox Margin="2" Text="{Binding First}"/>
                     <TextBlock Margin="2" Text="Отчество"></TextBlock>
-                    <TextBox Margin="2"/>
+                    <TextBox Margin="2" Text="{Binding Middle}"/>
                     <TextBlock Margin="2" Text="Фамилия"></TextBlock>
-                    <TextBox Margin="2"/>
+                    <TextBox Margin="2" Text="{Binding Last}"/>
                     <TextBlock Margin="2" Text="Город"></TextBlock>
-                    <TextBox Margin="2"/>
-                    <TextBlock Margin="2" Text="Отдел"></TextBlock>
-                    <ComboBox Margin="2"></ComboBox>
-                    <Button Margin="2" Content="Сохранить" Grid.Column="1" Command="{Binding AddAccount}"></Button>
-                    <Button Margin="2" Content="Удалить" Command="{Binding AddAccount}"/>
+                    <TextBox Margin="2" Text="{Binding Town}"/>
+                    <Button Margin="2" Content="Сохранить" Grid.Column="3" Command="{Binding SaveChange}"></Button>
+                   
                 </UniformGrid>
             </Expander>
             <!--<Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента">

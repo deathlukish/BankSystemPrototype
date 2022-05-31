@@ -7,10 +7,7 @@ namespace BankClientOperation
     public class Repository
     {
 
-        //JsonBase _JsonBase = new JsonBase();
         private ClassForLoad _ClientsBase = new ClassForLoad();
-
-
 
         public Repository()
         {
@@ -23,7 +20,7 @@ namespace BankClientOperation
         public List<BaseClient> GetClient()
         {
             List<BaseClient> ObsClients = new();
-            foreach (var a in _ClientsBase.Clients)
+            foreach (var a in _ClientsBase.Clients.FindAll(e => e.IsActive))
             {
                 ObsClients.Add(a);
             }
@@ -74,6 +71,11 @@ namespace BankClientOperation
             JsonBase.SaveBase(_ClientsBase, "./DB.json");
 
 
+
+        }
+        public void SaveBase()
+        {
+            JsonBase.SaveBase(_ClientsBase, "./DB.json");
 
         }
     }

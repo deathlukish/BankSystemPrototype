@@ -19,7 +19,9 @@ namespace BankClientOperation
         private T _SelectedClientTo;
         private float _ReplenishSum;
         private T Client;
+        private string _FirstName;
         public ICommand AddClientCommand { get; }
+        public ICommand SaveChange { get; }
         private void OnAddClient(object p)
         {
             
@@ -27,6 +29,12 @@ namespace BankClientOperation
            _AddClient.Show();
         }
         private bool CanAddClient(object p) => true;
+        private void OnSaveChange(object p)
+        {
+
+            _Repository.SaveBase();
+        }
+        private bool CanSaveChange(object p) => true;
         public AccountOperation()
         {
             GetClients();
@@ -70,6 +78,12 @@ namespace BankClientOperation
 
 
         }
+        public string FirsName 
+        {
+            get => _FirstName;
+            set => Set(ref _FirstName, value);
+        }
+
         public void Replenish()
         {
 
@@ -92,8 +106,9 @@ namespace BankClientOperation
 
 
         }
+        
 
-       
+
 
     }
 }
