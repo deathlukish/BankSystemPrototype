@@ -21,8 +21,6 @@ namespace BankClientOperation
 
             };
             var jsonString = JsonConvert.SerializeObject(classForLoad, Formatting.Indented, setting);
-            //string json = JsonConvert.SerializeObject(_ClassForLoad);
-
             using (StreamWriter fs = new StreamWriter(Path))
             {
                 fs.WriteLine(jsonString);

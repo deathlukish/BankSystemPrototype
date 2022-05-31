@@ -1,16 +1,7 @@
-﻿using BankClientOperation.ClientType;
-using BankSystemPrototype;
+﻿using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using BankSystemPrototype.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BankClientOperation
@@ -24,15 +15,16 @@ namespace BankClientOperation
         private ObservableCollection<BaseAccount> _AccountsTo = new();
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
-        private BaseClient _SelectedClientFrom;
-        private BaseClient _SelectedClientTo;
+        private T _SelectedClientFrom;
+        private T _SelectedClientTo;
         private float _ReplenishSum;
         private T Client;
         public ICommand AddClientCommand { get; }
         private void OnAddClient(object p)
         {
+            
             var _AddClient = new AddClient();
-            _AddClient.Show();
+           _AddClient.Show();
         }
         private bool CanAddClient(object p) => true;
         public AccountOperation()
@@ -67,7 +59,7 @@ namespace BankClientOperation
             }
 
         }
-        public BaseClient SelectedClientFrom
+        public T SelectedClientFrom
         {
             get => _SelectedClientFrom;
             set

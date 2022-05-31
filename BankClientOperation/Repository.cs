@@ -66,5 +66,15 @@ namespace BankClientOperation
             NumAccount++;
             return NumAccount;
         }
+        public void AddClient(BaseClient ClientForSave)
+        {
+
+
+            _ClientsBase.Clients.Add(ClientForSave);
+            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+
+
+
+        }
     }
 }

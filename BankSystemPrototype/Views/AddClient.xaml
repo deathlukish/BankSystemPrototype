@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankSystemPrototype"
         mc:Ignorable="d"
+        xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels"
         Title="AddClient" Height="450" Width="400">
+    <Window.DataContext>
+        <vm:AddClientViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"></ColumnDefinition>
@@ -23,11 +27,11 @@
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <TextBox x:Name="First" Grid.Column="1" Grid.Row="0" Margin="5" ></TextBox>
-        <TextBox x:Name="Middle" Grid.Column="1" Grid.Row="1" Margin="5" ></TextBox>
-        <TextBox x:Name="Last" Grid.Column="1" Grid.Row="2" Margin="5" ></TextBox>
-        <TextBox x:Name="Town" Grid.Column="1" Grid.Row="3" Margin="5" ></TextBox>
-        <ComboBox x:Name="ClientType" Grid.Column="1" Grid.Row="4" Margin="5" >
+        <TextBox x:Name="First" Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding FirsName}"></TextBox>
+        <TextBox x:Name="Middle" Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding MiddleName}"></TextBox>
+        <TextBox x:Name="Last" Grid.Column="1" Grid.Row="2" Margin="5" Text="{Binding LastName}"></TextBox>
+        <TextBox x:Name="Town" Grid.Column="1" Grid.Row="3" Margin="5" Text="{Binding Town}"></TextBox>
+        <ComboBox x:Name="ClientType" Grid.Column="1" Grid.Row="4" Margin="5" SelectedItem="{Binding ClientType}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}"></TextBlock>
@@ -36,7 +40,7 @@
         </ComboBox>
         <CheckBox x:Name="chkNoDeposite" Content="Депозитный" Grid.Column="1" Grid.Row="5" Margin="5" ></CheckBox>
         <CheckBox x:Name="chkDeposite" Content="Не Депозитный" Grid.Column="1" Grid.Row="6" Margin="5"></CheckBox>
-        <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="7" Margin="5"  Height="52" VerticalAlignment="Top"></Button>
+        <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="7" Margin="5"  Height="52" VerticalAlignment="Top" Command="{Binding AddClient}"></Button>
 
     </Grid>
 </Window>
