@@ -59,26 +59,13 @@ namespace BankSystemPrototype.ViewModels
                     && Town != null) return true;
             return false;
         }
+
         private void OnAddClient(object p)
         {
-            var Guid = new Guid();
-            
-            switch (ClientType)
-            {
-                case ClientTypeEnum.Entity:
-                    MessageBox.Show("Entity");
-                    repository.AddClient(new EntityClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));                    
-                    break;
-                case ClientTypeEnum.Regular:
-                    MessageBox.Show("Regular");
-                    repository.AddClient(new RegularClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));
-                    break;
-                case ClientTypeEnum.VIP:
-                    repository.AddClient (new VipClient(Guid.NewGuid(), FirsName, MiddleName, LastName, Town, true));
-                    MessageBox.Show("VIP");
-                    break;
 
-            }
+            repository.AddClient(ClientType, FirsName, MiddleName, LastName, Town);
+            
+
             
         }
         public AddClientViewModel()

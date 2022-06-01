@@ -1,13 +1,16 @@
 ﻿using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using BankSystemPrototype.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BankClientOperation
 {
     internal class AccountOperation<T> : ViewModel
-        where T : BaseClient
+        where T : BaseClient, new()
     {
         Repository _Repository = new Repository();
         private ObservableCollection<T> _Clients = new();
@@ -15,30 +18,40 @@ namespace BankClientOperation
         private ObservableCollection<BaseAccount> _AccountsTo = new();
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
-        private T _SelectedClientFrom;
-        private T _SelectedClientTo;
+        private T _SelectedClientFrom = new(); 
+        private T _SelectedClientTo = new();
         private float _ReplenishSum;
         private T Client;
         private string _FirstName;
         public ICommand AddClientCommand { get; }
-        public ICommand SaveChange { get; }
+        public ICommand OpenDeposite { get; }
         private void OnAddClient(object p)
         {
             
             var _AddClient = new AddClient();
            _AddClient.Show();
         }
-        private bool CanAddClient(object p) => true;
-        private void OnSaveChange(object p)
+        private void OnOpenDeposite(object p)
         {
-
+            
+            SelectedClientFrom.Accounts.Add(new Deposite(SelectedClientFrom.IdClient));
             _Repository.SaveBase();
         }
-        private bool CanSaveChange(object p) => true;
+        private bool CanAddClient(object p) => true;
+        private bool CanOpenDeposite(object p)
+        {
+            
+            if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new List<BaseAccount>();
+            if ((SelectedClientFrom.Accounts.FindAll(e => e is Deposite).Count == 0)) return true;
+            else return false;
+        
+        
+        }
         public AccountOperation()
         {
             GetClients();
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
+            OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
         }
         public BaseAccount SelectedAccountFrom
         {
@@ -54,11 +67,7 @@ namespace BankClientOperation
         }
         public ObservableCollection<T> Clients
         {
-            get
-            {
-                
-                return _Clients;
-            }
+            get => _Clients;
             set { 
 
                 _Clients = value;
@@ -73,7 +82,7 @@ namespace BankClientOperation
             set
             {
                 Set(ref _SelectedClientFrom, value);
-                AccountsFrom = _Repository.GetAccountsFromClient(SelectedClientFrom.IdClient);
+             
             }
 
 
@@ -84,10 +93,7 @@ namespace BankClientOperation
             set => Set(ref _FirstName, value);
         }
 
-        public void Replenish()
-        {
 
-        }
         public void OpenAccount()
         {
         
@@ -103,8 +109,6 @@ namespace BankClientOperation
             {
                 _Clients.Add((T)a);
             }
-
-
         }
         
 
