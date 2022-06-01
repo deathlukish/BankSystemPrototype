@@ -27,7 +27,8 @@ namespace BankClientOperation
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
         public ICommand SaveChange { get; }
-        public ICommand CloseAccount { get; set; }
+        public ICommand CloseAccount { get; }
+        public ICommand DelClientCommand { get; }
         private void OnAddClient(object p)
         {
             
@@ -61,6 +62,10 @@ namespace BankClientOperation
             SelectedClientFrom.Accounts.Remove(SelectedAccountFrom);
         
         }
+        private void OnDelClientCommand(object p)
+        {
+            _Clients.Remove(SelectedClientFrom);
+        }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
@@ -80,6 +85,7 @@ namespace BankClientOperation
             return false;
         }
         private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
+        private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
         public MainWindowViewModel()
         {
             GetClients();
@@ -88,6 +94,7 @@ namespace BankClientOperation
             OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
             SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
+            DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
         }
 
         private bool CanCloseAccount(object p)
