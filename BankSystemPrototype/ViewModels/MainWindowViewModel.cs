@@ -64,7 +64,8 @@ namespace BankClientOperation
         }
         private void OnDelClientCommand(object p)
         {
-            _Clients.Remove(SelectedClientFrom);
+            _Clients[_Clients.IndexOf(SelectedClientFrom)].IsActive = false;
+            _Repository.SaveBase();
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
@@ -146,7 +147,7 @@ namespace BankClientOperation
 
         public void GetClients()
         {
-            foreach (var a in _Repository.GetClient().FindAll(e => e is T))
+            foreach (var a in _Repository.GetClient().FindAll(e => e is T && e.IsActive))
             {
                 _Clients.Add((T)a);
             }
