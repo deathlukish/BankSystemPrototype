@@ -14,7 +14,7 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository();
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount> _AccountsFrom = new();
+        private ObservableCollection<BaseAccount> _AccountsFrom; 
         private ObservableCollection<BaseAccount> _AccountsTo = new();
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
@@ -33,19 +33,21 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-            
+            if (_SelectedClientFrom.Accounts == null) _SelectedClientFrom.Accounts = new();
             SelectedClientFrom.Accounts.Add(new Deposite(SelectedClientFrom.IdClient));
             _Repository.SaveBase();
+
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
-            
-            if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new List<BaseAccount>();
-            if ((SelectedClientFrom.Accounts.FindAll(e => e is Deposite).Count == 0)) return true;
-            else return false;
-        
-        
+
+
+            if (_SelectedClientFrom.Accounts == null) return true;
+            if (_SelectedClientFrom.Accounts?.FindAll(e => e is Deposite).Count == 0) return true;
+            return false;
+
+
         }
         public AccountOperation()
         {
