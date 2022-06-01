@@ -26,7 +26,8 @@ namespace BankClientOperation
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
-        public ICommand SaveChange { get; set; }
+        public ICommand SaveChange { get; }
+        public ICommand CloseAccount { get; set; }
         private void OnAddClient(object p)
         {
             
@@ -54,7 +55,12 @@ namespace BankClientOperation
             _Repository.SaveBase();
 
         }
+        private void OnCloseAccount(object p)
+        {
 
+            SelectedClientFrom.Accounts.Remove(SelectedAccountFrom);
+        
+        }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
@@ -81,6 +87,14 @@ namespace BankClientOperation
             OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
             OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
             SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
+            CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
+        }
+
+        private bool CanCloseAccount(object p)
+        {
+            if (_SelectedAccountFrom != null) return true;
+            else return false;
+        
         }
         public BaseAccount SelectedAccountFrom
         {
@@ -122,10 +136,7 @@ namespace BankClientOperation
             set => Set(ref _FirstName, value);
         }
 
-        public void CloseAccount()
-        { 
-        
-        }
+
         public void GetClients()
         {
             foreach (var a in _Repository.GetClient().FindAll(e => e is T))

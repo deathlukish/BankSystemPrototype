@@ -162,7 +162,7 @@
                 <UniformGrid  Columns="3">
                     <Button  Margin="2" Content="Открыть Депозит" Command="{Binding OpenDeposite}"/>
                     <Button  Margin="2" Content="Открыть неДепозит" Command="{Binding OpenNoDeposite}"/>
-                    <Button  Margin="2" Content="Закрыть" Command="{Binding ReplenishCommand}"/>
+                    <Button  Margin="2" Content="Закрыть" Command="{Binding CloseAccount}"/>
                 </UniformGrid>
             </GroupBox>
             <GroupBox  Grid.Row="2" Grid.Column="1" Margin="5" Header="Перевод между счетами">
