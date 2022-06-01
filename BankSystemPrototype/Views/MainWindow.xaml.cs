@@ -34,13 +34,13 @@ namespace BankSystemPrototype
             {
                 
                 case ClientTypeEnum.Entity:                    
-                    this.DataContext = new AccountOperation<EntityClient>();
+                    this.DataContext = new MainWindowViewModel<EntityClient>();
                     break;
                 case ClientTypeEnum.Regular:
-                    this.DataContext = new AccountOperation<RegularClient>();
+                    this.DataContext = new MainWindowViewModel<RegularClient>();
                     break;
                 case ClientTypeEnum.VIP:
-                    this.DataContext = new AccountOperation<VipClient>();
+                    this.DataContext = new MainWindowViewModel<VipClient>();
                     break;
 
             }

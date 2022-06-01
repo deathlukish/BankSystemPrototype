@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace BankClientOperation
 {
-    internal class AccountOperation<T> : ViewModel
+    internal class MainWindowViewModel<T> : ViewModel
         where T : BaseClient, new()
     {
         Repository _Repository = new Repository();
@@ -73,8 +73,14 @@ namespace BankClientOperation
             if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
             return false;
         }
-        private bool CanSaveChange(object p) => true;
-        public AccountOperation()
+        private bool CanSaveChange(object p)
+        {
+            if (_SelectedClientFrom is VipClient) return false;
+            else return true;
+
+        
+        }
+        public MainWindowViewModel()
         {
             GetClients();
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
@@ -120,12 +126,6 @@ namespace BankClientOperation
         {
             get => _FirstName;
             set => Set(ref _FirstName, value);
-        }
-
-
-        public void OpenAccount()
-        {
-        
         }
 
         public void CloseAccount()
