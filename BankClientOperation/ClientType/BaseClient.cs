@@ -20,6 +20,7 @@ namespace BankClientOperation
         public string Last { get => _Last; set => Set(ref _Last, value); }
         public  string Town { get => _Town; set => Set(ref _Town, value); }
         public bool IsActive { get => _IsActive; set => Set(ref _IsActive, value); }
+        public virtual bool IsCanChange { get; set; } = true;
         public List<BaseAccount> Accounts { get => _Accounts; set => Set(ref _Accounts, value); }
 
         public event PropertyChangedEventHandler PropertyChanged;

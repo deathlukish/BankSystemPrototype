@@ -73,13 +73,7 @@ namespace BankClientOperation
             if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
             return false;
         }
-        private bool CanSaveChange(object p)
-        {
-            if (_SelectedClientFrom is VipClient) return false;
-            else return true;
-
-        
-        }
+        private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
         public MainWindowViewModel()
         {
             GetClients();

@@ -8,6 +8,8 @@ namespace BankClientOperation
 {
     public class VipClient:BaseClient
     {
+
+        public override bool IsCanChange { get; set; } = false;
         public VipClient() : base()
         {
 
