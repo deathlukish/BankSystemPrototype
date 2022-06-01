@@ -25,6 +25,7 @@ namespace BankClientOperation
         private string _FirstName;
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
+        public ICommand OpenNoDeposite { get; }
         private void OnAddClient(object p)
         {
             
@@ -33,11 +34,23 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
+                       
+            OpenAccount(new Deposite(SelectedClientFrom.IdClient));
+
+        }
+        private void OnOpenNoDeposite(object p)
+        {
+            OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
+        }
+
+        private void OpenAccount<A>(A ee) where A:BaseAccount
+        {
             if (_SelectedClientFrom.Accounts == null) _SelectedClientFrom.Accounts = new();
-            SelectedClientFrom.Accounts.Add(new Deposite(SelectedClientFrom.IdClient));
+            SelectedClientFrom.Accounts.Add(ee);
             _Repository.SaveBase();
 
         }
+
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
@@ -49,11 +62,19 @@ namespace BankClientOperation
 
 
         }
+        private bool CanOpenNoDeposite(object p)
+        {
+
+            if (_SelectedClientFrom.Accounts == null) return true;
+            if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
+            return false;
+        }
         public AccountOperation()
         {
             GetClients();
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
             OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
+            OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
         }
         public BaseAccount SelectedAccountFrom
         {
