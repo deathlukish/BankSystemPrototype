@@ -26,6 +26,7 @@ namespace BankClientOperation
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
+        public ICommand SaveChange { get; set; }
         private void OnAddClient(object p)
         {
             
@@ -42,7 +43,10 @@ namespace BankClientOperation
         {
             OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
         }
-
+        private void OnSaveChange(object p)
+        {
+            _Repository.SaveBase();
+        }
         private void OpenAccount<A>(A ee) where A:BaseAccount
         {
             if (_SelectedClientFrom.Accounts == null) _SelectedClientFrom.Accounts = new();
@@ -69,12 +73,14 @@ namespace BankClientOperation
             if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
             return false;
         }
+        private bool CanSaveChange(object p) => true;
         public AccountOperation()
         {
             GetClients();
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
             OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
             OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
+            SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
         }
         public BaseAccount SelectedAccountFrom
         {

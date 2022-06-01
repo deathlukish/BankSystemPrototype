@@ -182,15 +182,15 @@
                 </UniformGrid>
             </GroupBox>
             <Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента" >
-                <UniformGrid  Columns="2" DataContext="{Binding Path=Clients}">
+                <UniformGrid  Columns="2">
                     <TextBlock Margin="2" Text="Имя"></TextBlock>
-                    <TextBox Margin="2" Text="{Binding First}"/>
+                    <TextBox Margin="2" Text="{Binding ElementName=ListClientsFrom, Path=SelectedItem.First, Mode=TwoWay}"/>
                     <TextBlock Margin="2" Text="Отчество"></TextBlock>
-                    <TextBox Margin="2" Text="{Binding Middle}"/>
+                    <TextBox Margin="2" Text="{Binding ElementName=ListClientsFrom, Path=SelectedItem.Middle}"/>
                     <TextBlock Margin="2" Text="Фамилия"></TextBlock>
-                    <TextBox Margin="2" Text="{Binding Last}"/>
+                    <TextBox Margin="2" Text="{Binding ElementName=ListClientsFrom, Path=SelectedItem.Last}"/>
                     <TextBlock Margin="2" Text="Город"></TextBlock>
-                    <TextBox Margin="2" Text="{Binding Town}"/>
+                    <TextBox Margin="2" Text="{Binding ElementName=ListClientsFrom, Path=SelectedItem.Town}"/>
                     <Button Margin="2" Content="Сохранить" Grid.Column="3" Command="{Binding SaveChange}"></Button>
                    
                 </UniformGrid>
