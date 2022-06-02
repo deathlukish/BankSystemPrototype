@@ -15,11 +15,11 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount> _AccountsFrom; 
+        private ObservableCollection<BaseAccount> _AccountsFrom;
         private ObservableCollection<BaseAccount> _AccountsTo = new();
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
-        private T _SelectedClientFrom; 
+        private T _SelectedClientFrom;
         private T _SelectedClientTo = new();
         private float _ReplenishSum;
         private T Client;
@@ -32,13 +32,13 @@ namespace BankClientOperation
         public ICommand DelClientCommand { get; }
         private void OnAddClient(object p)
         {
-            
+
             var _AddClient = new AddClient();
-           _AddClient.Show();
+            _AddClient.Show();
         }
         private void OnOpenDeposite(object p)
         {
-                       
+
             _Repository.OpenAccount(new Deposite(SelectedClientFrom.IdClient));
             AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
 
@@ -58,7 +58,7 @@ namespace BankClientOperation
         {
 
             SelectedClientFrom.Accounts.Remove(SelectedAccountFrom);
-        
+
         }
         private void OnDelClientCommand(object p)
         {
@@ -85,7 +85,14 @@ namespace BankClientOperation
             }
             return false;
         }
-        //private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
+        private bool CanSaveChange(object p)
+        {
+            if (SelectedClientFrom != null)
+            {
+                if (SelectedClientFrom.IsCanChange) return true;
+            }
+            return false;
+        }
         private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
         public MainWindowViewModel()
         {
@@ -93,7 +100,7 @@ namespace BankClientOperation
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
             OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
             OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
-           // SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
+            SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
         }
