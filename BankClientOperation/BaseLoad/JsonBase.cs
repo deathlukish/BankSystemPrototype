@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BankClientOperation.BaseLoad;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public static class JsonBase 
+    internal static class JsonBase 
     {
         
-        public static void SaveBase(List<BaseClient> BaseToSave, string Path)
+        public static void SaveBase(BaseToLoad BaseToSave, string Path)
         {
 
             JsonSerializerSettings setting = new JsonSerializerSettings
@@ -29,7 +30,7 @@ namespace BankClientOperation
 
     
 
-        public static List<BaseClient> LoadDb(string Path)
+        public static BaseToLoad LoadDb(string Path)
         {
             if (!File.Exists(Path))
             {
@@ -43,10 +44,10 @@ namespace BankClientOperation
                 TypeNameHandling = TypeNameHandling.All
 
             };
-            List<BaseClient> clients = new();
+            BaseToLoad clients = new();
             using (StreamReader streamReader = new StreamReader(Path))
             {
-                clients = JsonConvert.DeserializeObject<List<BaseClient>> (streamReader.ReadToEnd(), setting);
+                clients = JsonConvert.DeserializeObject<BaseToLoad>(streamReader.ReadToEnd(), setting);
             
             }
             return clients;

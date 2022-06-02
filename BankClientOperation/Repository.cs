@@ -1,4 +1,5 @@
-﻿using BankClientOperation.ClientType;
+﻿using BankClientOperation.BaseLoad;
+using BankClientOperation.ClientType;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,19 +9,19 @@ namespace BankClientOperation
     public class Repository
     {
 
-        private List<BaseClient> _ClientsBase = new();
+        private BaseToLoad _ClientsBase = new();
 
         public Repository()
         {
             _ClientsBase = JsonBase.LoadDb("./DB.json");
-            if (_ClientsBase == null) _ClientsBase = new List<BaseClient>();
+            if (_ClientsBase == null) _ClientsBase = new BaseToLoad();
 
 
         }
         public List<BaseClient> GetClient()
         {
             List<BaseClient> ObsClients = new();
-            foreach (var a in _ClientsBase.FindAll(e => e.IsActive))
+            foreach (var a in _ClientsBase.Clients.FindAll(e => e.IsActive))
             {
                 ObsClients.Add(a);
             }
@@ -40,14 +41,14 @@ namespace BankClientOperation
             {
                 case ClientTypeEnum.Entity:
 
-                    _ClientsBase.Add(new EntityClient(First, Middle, Last, Town));
+                    _ClientsBase.Clients.Add(new EntityClient(First, Middle, Last, Town));
                     break;
                 case ClientTypeEnum.Regular:
 
-                    _ClientsBase.Add(new RegularClient( First, Middle, Last, Town));
+                    _ClientsBase.Clients.Add(new RegularClient( First, Middle, Last, Town));
                     break;
                 case ClientTypeEnum.VIP:
-                    _ClientsBase.Add(new VipClient(First, Middle, Last, Town));                  
+                    _ClientsBase.Clients.Add(new VipClient(First, Middle, Last, Town));                  
                     break;
 
             }

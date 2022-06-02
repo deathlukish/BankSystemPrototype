@@ -49,10 +49,10 @@ namespace BankClientOperation
         {
             _Repository.SaveBase();
         }
-        private void OpenAccount<A>(A ee) where A:BaseAccount
+        private void OpenAccount<A>(A Account) where A:BaseAccount
         {
-            if (_SelectedClientFrom.Accounts == null) _SelectedClientFrom.Accounts = new();
-            SelectedClientFrom.Accounts.Add(ee);
+            if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
+            SelectedClientFrom.Accounts.Add(Account);
             _Repository.SaveBase();
 
         }
