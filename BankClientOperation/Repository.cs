@@ -55,12 +55,12 @@ namespace BankClientOperation
 
             switch (ClientType)
             {
+      
                 case ClientTypeEnum.Entity:
 
                     _ClientsBase.Clients.Add(new EntityClient(First, Middle, Last, Town));
                     break;
                 case ClientTypeEnum.Regular:
-
                     _ClientsBase.Clients.Add(new RegularClient( First, Middle, Last, Town));
                     break;
                 case ClientTypeEnum.VIP:

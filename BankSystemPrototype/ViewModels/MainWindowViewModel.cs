@@ -53,11 +53,9 @@ namespace BankClientOperation
         private void OpenAccount<A>(A Account) where A:BaseAccount
         {
             if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
-
-            // SelectedClientFrom.Accounts.Add(Account);
             AccountsFrom.Add(Account);
-            _Repository.AddAccount(Account);
-            _Repository.SaveBase();
+           _Repository.AddAccount(Account);
+           _Repository.SaveBase();
 
         }
         private void OnCloseAccount(object p)
@@ -87,7 +85,7 @@ namespace BankClientOperation
             if (AccountsFrom.Count(e => e is NoDeposite) == 0) return true;
             return false;
         }
-    private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
+        private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
         private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
         public MainWindowViewModel()
         {
@@ -156,11 +154,6 @@ namespace BankClientOperation
             }
         }
 
-        private void GetAccounts(Guid ClientGuid)
-        {
-            _AccountsFrom = _Repository.GetAccounts(ClientGuid);
-
-        }
 
 
     }
