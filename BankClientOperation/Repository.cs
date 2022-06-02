@@ -77,11 +77,6 @@ namespace BankClientOperation
             _ClientsBase.Accounts.Add(Account);
             JsonBase.SaveBase(_ClientsBase, "./DB.json");
 
-            //if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
-            //AccountsFrom.Add(Account);
-            //_Repository.AddAccount(Account);
-            //_Repository.SaveBase();
-
         }
         private int GenIdAccount()
         {
