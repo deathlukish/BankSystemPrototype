@@ -18,9 +18,16 @@ namespace BankClientOperation
 
 
         }
-        public List<BaseClient> GetClient()
+
+        public void AddAccount(BaseAccount baseAccount)
         {
-            List<BaseClient> ObsClients = new();
+            _ClientsBase.Accounts.Add(baseAccount);
+        
+        }
+
+        public ObservableCollection<BaseClient> GetClient()
+        {
+            ObservableCollection<BaseClient> ObsClients = new();
             foreach (var a in _ClientsBase.Clients.FindAll(e => e.IsActive))
             {
                 ObsClients.Add(a);
@@ -28,7 +35,16 @@ namespace BankClientOperation
 
             return ObsClients;
         }
+        public ObservableCollection<BaseAccount> GetAccounts(Guid guid)
+        {
+            ObservableCollection<BaseAccount> ObsAccount = new();
+            foreach (var a in _ClientsBase.Accounts.FindAll(e => e.OwnerId == guid && e.IsActive))
+            {
+                ObsAccount.Add(a);
+            }
+            return ObsAccount;
 
+        }
         public void SaveBase()
         {
             JsonBase.SaveBase(_ClientsBase, "./DB.json");

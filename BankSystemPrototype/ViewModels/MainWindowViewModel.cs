@@ -1,6 +1,7 @@
 ﻿using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using BankSystemPrototype.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -52,7 +53,9 @@ namespace BankClientOperation
         private void OpenAccount<A>(A Account) where A:BaseAccount
         {
             if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
-            SelectedClientFrom.Accounts.Add(Account);
+            // SelectedClientFrom.Accounts.Add(Account);
+            AccountsFrom.Add(Account);
+            _Repository.AddAccount(Account);
             _Repository.SaveBase();
 
         }
@@ -78,13 +81,13 @@ namespace BankClientOperation
 
 
         }
-        private bool CanOpenNoDeposite(object p)
-        {
+        private bool CanOpenNoDeposite(object p) => true;
+      //  {
 
-            if (_SelectedClientFrom.Accounts == null) return true;
-            if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
-            return false;
-        }
+            //if (_SelectedClientFrom.Accounts == null) return true;
+            //if (_SelectedClientFrom.Accounts?.FindAll(e => e is NoDeposite).Count == 0) return true;
+            //return false;
+       // }
         private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
         private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
         public MainWindowViewModel()
@@ -121,7 +124,7 @@ namespace BankClientOperation
             get => _Clients;
             set { 
 
-                _Clients = value;
+                //_Clients = value;
                 Set(ref _Clients, value);
           
             }
@@ -133,6 +136,7 @@ namespace BankClientOperation
             set
             {
                 Set(ref _SelectedClientFrom, value);
+                AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
              
             }
 
@@ -144,16 +148,20 @@ namespace BankClientOperation
             set => Set(ref _FirstName, value);
         }
 
-
+        
         public void GetClients()
         {
-            foreach (var a in _Repository.GetClient().FindAll(e => e is T && e.IsActive))
+            foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
                 _Clients.Add((T)a);
             }
         }
-        
 
+        private void GetAccounts(Guid ClientGuid)
+        {
+            _AccountsFrom = _Repository.GetAccounts(ClientGuid);
+
+        }
 
 
     }
