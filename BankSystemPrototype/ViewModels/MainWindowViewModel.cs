@@ -13,13 +13,13 @@ namespace BankClientOperation
     internal class MainWindowViewModel<T> : ViewModel
         where T : BaseClient, new()
     {
-        Repository _Repository = new Repository();
+        Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
         private ObservableCollection<BaseAccount> _AccountsFrom; 
         private ObservableCollection<BaseAccount> _AccountsTo = new();
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
-        private T _SelectedClientFrom = new(); 
+        private T _SelectedClientFrom; 
         private T _SelectedClientTo = new();
         private float _ReplenishSum;
         private T Client;
@@ -68,20 +68,24 @@ namespace BankClientOperation
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
-          
-            if (AccountsFrom == null) return true;
-            if (AccountsFrom.Count(e => e is Deposite) == 0) return true;
+
+            if (SelectedClientFrom != null)
+            {
+                if (AccountsFrom.Count(e => e is Deposite) == 0) return true;
+            }
             return false;
 
 
         }
         private bool CanOpenNoDeposite(object p)
         {
-            if (AccountsFrom == null) return true;
-            if (AccountsFrom.Count(e => e is NoDeposite) == 0) return true;
+            if (SelectedClientFrom != null)
+            {
+                if (AccountsFrom.Count(e => e is NoDeposite) == 0) return true;
+            }
             return false;
         }
-        private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
+        //private bool CanSaveChange(object p) => SelectedClientFrom.IsCanChange;
         private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
         public MainWindowViewModel()
         {
@@ -89,7 +93,7 @@ namespace BankClientOperation
             AddClientCommand = new RelayCommand(OnAddClient, CanAddClient);
             OpenDeposite = new RelayCommand(OnOpenDeposite, CanOpenDeposite);
             OpenNoDeposite = new RelayCommand(OnOpenNoDeposite, CanOpenNoDeposite);
-            SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
+           // SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
         }

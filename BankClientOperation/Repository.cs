@@ -11,10 +11,11 @@ namespace BankClientOperation
     {
 
         private BaseToLoad _ClientsBase = new();
-
-        public Repository()
+        private string _Path;
+        public Repository(string Path)
         {
-            _ClientsBase = JsonBase.LoadDb("./DB.json");
+            _Path = Path;
+            _ClientsBase = JsonBase.LoadDb(_Path);
             if (_ClientsBase == null) _ClientsBase = new BaseToLoad();
 
 
@@ -48,7 +49,7 @@ namespace BankClientOperation
         }
         public void SaveBase()
         {
-            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+            JsonBase.SaveBase(_ClientsBase, _Path);
 
         }
         public void AddClient(ClientTypeEnum ClientType, string First, string Middle, string Last, string Town)
@@ -69,25 +70,26 @@ namespace BankClientOperation
                     break;
 
             }
-            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+            JsonBase.SaveBase(_ClientsBase, _Path);
         }
         public void OpenAccount<A>(A Account) where A : BaseAccount
         {
             Account.NumAccount = GenIdAccount();
             _ClientsBase.Accounts.Add(Account);
-            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+            JsonBase.SaveBase(_ClientsBase, _Path);
 
         }
-        private int GenIdAccount()
+        private long GenIdAccount()
         {
-            int Id = 0;
+            long Id = 100_000_000;
             foreach (var a in _ClientsBase.Accounts)
             {
                 if (a.NumAccount > Id)
                 {
-                    Id = a.NumAccount++;
+                    Id = a.NumAccount;
                 }
             }
+            Id++;
             return Id;
         }
 

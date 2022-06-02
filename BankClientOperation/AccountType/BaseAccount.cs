@@ -12,7 +12,7 @@ namespace BankClientOperation
     public abstract class BaseAccount : INotifyPropertyChanged
     {
         private float _Balance;
-        public int NumAccount { get; set; }
+        public long NumAccount { get; set; }
         public Guid OwnerId { get; set; }
         public float Balance 
         { 

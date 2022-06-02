@@ -13,7 +13,7 @@ namespace BankSystemPrototype.ViewModels
 {
     class AddClientViewModel : ViewModel
     {
-        private Repository repository = new Repository();
+        private Repository repository = new Repository("./DB.json");
         private string _FirstName;
         private string _MiddleName;
         private string _LastName;
