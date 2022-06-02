@@ -9,8 +9,8 @@ namespace BankClientOperation.BaseLoad
 {
     internal class BaseToLoad
     {
-        public List<BaseClient> Clients { get; set; } = new List<BaseClient>();
-        public List<BaseAccount> Accounts { get; set; } = new List<BaseAccount>();
+        public ObservableCollection<BaseClient> Clients { get; set; } = new ObservableCollection<BaseClient>();
+        public ObservableCollection<BaseAccount> Accounts { get; set; } = new ObservableCollection<BaseAccount>();
 
     }
 }

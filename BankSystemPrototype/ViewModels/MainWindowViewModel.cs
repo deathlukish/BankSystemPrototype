@@ -39,25 +39,21 @@ namespace BankClientOperation
         private void OnOpenDeposite(object p)
         {
                        
-            OpenAccount(new Deposite(SelectedClientFrom.IdClient));
+            _Repository.OpenAccount(new Deposite(SelectedClientFrom.IdClient));
+            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+
 
         }
         private void OnOpenNoDeposite(object p)
         {
-            OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
+            _Repository.OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
+            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
         }
         private void OnSaveChange(object p)
         {
             _Repository.SaveBase();
         }
-        private void OpenAccount<A>(A Account) where A:BaseAccount
-        {
-            if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
-            AccountsFrom.Add(Account);
-           _Repository.AddAccount(Account);
-           _Repository.SaveBase();
 
-        }
         private void OnCloseAccount(object p)
         {
 

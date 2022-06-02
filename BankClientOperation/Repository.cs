@@ -3,6 +3,7 @@ using BankClientOperation.ClientType;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace BankClientOperation
 {
@@ -28,7 +29,7 @@ namespace BankClientOperation
         public ObservableCollection<BaseClient> GetClient()
         {
             ObservableCollection<BaseClient> ObsClients = new();
-            foreach (var a in _ClientsBase.Clients.FindAll(e => e.IsActive))
+            foreach (var a in _ClientsBase.Clients.Where(e => e.IsActive))
             {
                 ObsClients.Add(a);
             }
@@ -38,7 +39,7 @@ namespace BankClientOperation
         public ObservableCollection<BaseAccount> GetAccounts(Guid guid)
         {
             ObservableCollection<BaseAccount> ObsAccount = new();
-            foreach (var a in _ClientsBase.Accounts.FindAll(e => e.OwnerId == guid && e.IsActive))
+            foreach (var a in _ClientsBase.Accounts.Where(e => e.OwnerId == guid && e.IsActive))
             {
                 ObsAccount.Add(a);
             }
@@ -69,6 +70,30 @@ namespace BankClientOperation
 
             }
             JsonBase.SaveBase(_ClientsBase, "./DB.json");
+        }
+        public void OpenAccount<A>(A Account) where A : BaseAccount
+        {
+            Account.NumAccount = GenIdAccount();
+            _ClientsBase.Accounts.Add(Account);
+            JsonBase.SaveBase(_ClientsBase, "./DB.json");
+
+            //if (SelectedClientFrom.Accounts == null) SelectedClientFrom.Accounts = new();
+            //AccountsFrom.Add(Account);
+            //_Repository.AddAccount(Account);
+            //_Repository.SaveBase();
+
+        }
+        private int GenIdAccount()
+        {
+            int Id = 0;
+            foreach (var a in _ClientsBase.Accounts)
+            {
+                if (a.NumAccount > Id)
+                {
+                    Id = a.NumAccount++;
+                }
+            }
+            return Id;
         }
 
     }
