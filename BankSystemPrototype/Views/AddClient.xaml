@@ -38,7 +38,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         
-        <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="7" Margin="5"  Height="52" VerticalAlignment="Top" Command="{Binding AddClient}"></Button>
+        <Button x:Name="btnSave" Content="Добавить" Grid.Column="1" Grid.Row="7" Margin="5"  Height="52" VerticalAlignment="Top" Click="btnSave_Click"></Button>
 
     </Grid>
 </Window>

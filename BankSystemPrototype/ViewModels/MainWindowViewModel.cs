@@ -35,7 +35,17 @@ namespace BankClientOperation
         {
 
             var _AddClient = new AddClient();
-            _AddClient.Show();
+            _AddClient.ShowDialog();
+            if (_AddClient.DialogResult ?? false)
+            {               
+                _Repository.AddClient((_AddClient.DataContext as AddClientViewModel).ClientType,
+                   (_AddClient.DataContext as AddClientViewModel).FirsName,
+                   (_AddClient.DataContext as AddClientViewModel).MiddleName,
+                    (_AddClient.DataContext as AddClientViewModel).LastName,
+                    (_AddClient.DataContext as AddClientViewModel).Town);
+
+            }
+
         }
         private void OnOpenDeposite(object p)
         {
@@ -168,7 +178,7 @@ namespace BankClientOperation
         }
 
         
-        public void GetClients()
+        private void GetClients()
         {
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {

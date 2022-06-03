@@ -21,6 +21,10 @@ namespace BankSystemPrototype
 
         }
 
-      
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            this.Close();
+        }
     }
 }

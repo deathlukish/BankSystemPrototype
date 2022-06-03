@@ -13,7 +13,7 @@ namespace BankSystemPrototype.ViewModels
 {
     class AddClientViewModel : ViewModel
     {
-        private Repository repository = new Repository("./DB.json");
+       
         private string _FirstName;
         private string _MiddleName;
         private string _LastName;
@@ -49,28 +49,6 @@ namespace BankSystemPrototype.ViewModels
             set => Set(ref _ClientType, value);
 
         }
-        public ICommand AddClient { get; }
-        private bool CanAddClient(object p)
-        {
-            if (FirsName != null
-                    && FirsName != null
-                    && MiddleName != null
-                    && LastName != null
-                    && Town != null) return true;
-            return false;
-        }
 
-        private void OnAddClient(object p)
-        {
-
-            repository.AddClient(ClientType, FirsName, MiddleName, LastName, Town);
-            
-
-            
-        }
-        public AddClientViewModel()
-        {
-            AddClient = new RelayCommand(OnAddClient, CanAddClient);
-        }
     }
 }
