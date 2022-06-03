@@ -56,8 +56,8 @@ namespace BankClientOperation
 
         private void OnCloseAccount(object p)
         {
-
-            SelectedClientFrom.Accounts.Remove(SelectedAccountFrom);
+            _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
+            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }
         private void OnDelClientCommand(object p)
@@ -107,7 +107,8 @@ namespace BankClientOperation
 
         private bool CanCloseAccount(object p)
         {
-            if (_SelectedAccountFrom != null) return true;
+            if (_SelectedAccountFrom != null && SelectedAccountFrom.Balance==0) return true;
+
             else return false;
         
         }

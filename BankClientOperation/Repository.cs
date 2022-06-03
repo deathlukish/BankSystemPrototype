@@ -93,5 +93,12 @@ namespace BankClientOperation
             return Id;
         }
 
+        public void CloseAccount(long NumAccount)
+        {
+
+            _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).IsActive = false;
+
+        }
+
     }
 }
