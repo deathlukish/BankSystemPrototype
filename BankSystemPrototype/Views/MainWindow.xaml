@@ -155,7 +155,7 @@
             <GroupBox  Grid.Row="0" Grid.Column="1" Margin="5" Header="Поплнение счета">
                 <UniformGrid  Columns="2">
                     <TextBox  PreviewTextInput="NumberValidationTextBox" Margin="2" Text="{Binding ReplenishSum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <Button  Margin="2" Content="Пополнить" Command="{Binding ReplenishCommand}"/>
+                    <Button  Margin="2" Content="Пополнить" Command="{Binding ReplanishAccount}"/>
                 </UniformGrid>
             </GroupBox>
             <GroupBox  Grid.Row="1" Grid.Column="1" Margin="5" Header="Операции над счетами">

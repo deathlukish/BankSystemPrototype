@@ -97,8 +97,14 @@ namespace BankClientOperation
         {
 
             _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).IsActive = false;
+            SaveBase();
 
         }
+        public void ReplanishAccount(long NumAccount, float Sum)
+        {
 
+            _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).Balance += Sum;
+            SaveBase();
+        }
     }
 }

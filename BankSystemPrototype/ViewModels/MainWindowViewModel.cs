@@ -30,6 +30,7 @@ namespace BankClientOperation
         public ICommand SaveChange { get; }
         public ICommand CloseAccount { get; }
         public ICommand DelClientCommand { get; }
+        public ICommand ReplanishAccount { get; }
         private void OnAddClient(object p)
         {
 
@@ -65,6 +66,13 @@ namespace BankClientOperation
             _Clients[_Clients.IndexOf(SelectedClientFrom)].IsActive = false;
             _Repository.SaveBase();
         }
+        private void OnReplanishAccount(object p)
+        {
+
+            _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
+            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
+
+        }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
         {
@@ -94,6 +102,11 @@ namespace BankClientOperation
             return false;
         }
         private bool CanDelClientCommand(object p) => SelectedClientFrom != null;
+        private bool CanReplanishAccount(object p)
+        {
+            if (ReplenishSum > 0 && SelectedAccountFrom != null) return true;
+            else return false;
+        }
         public MainWindowViewModel()
         {
             GetClients();
@@ -103,6 +116,7 @@ namespace BankClientOperation
             SaveChange = new RelayCommand(OnSaveChange, CanSaveChange);
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
+            ReplanishAccount = new RelayCommand(OnReplanishAccount, CanReplanishAccount);
         }
 
         private bool CanCloseAccount(object p)
@@ -162,7 +176,12 @@ namespace BankClientOperation
             }
         }
 
+        public float ReplenishSum
+        { 
+            get => _ReplenishSum;
+            set => Set(ref _ReplenishSum, value);
 
+        }
 
     }
 }
