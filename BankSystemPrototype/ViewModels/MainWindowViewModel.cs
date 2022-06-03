@@ -11,16 +11,16 @@ using System.Windows.Input;
 namespace BankClientOperation
 {
     internal class MainWindowViewModel<T> : ViewModel
-        where T : BaseClient, new()
+        where T : BaseClient
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
         private ObservableCollection<BaseAccount> _AccountsFrom;
-        private ObservableCollection<BaseAccount> _AccountsTo = new();
+        private ObservableCollection<BaseAccount> _AccountsTo;
         private BaseAccount _SelectedAccountFrom;
         private BaseAccount _SelectedAccountTo;
         private T _SelectedClientFrom;
-        private T _SelectedClientTo = new();
+        private T _SelectedClientTo;
         private float _ReplenishSum;
         private T Client;
         private string _FirstName;
@@ -34,15 +34,15 @@ namespace BankClientOperation
         private void OnAddClient(object p)
         {
 
-            var _AddClient = new AddClient();
+            AddClient _AddClient = new();
             _AddClient.ShowDialog();
             if (_AddClient.DialogResult ?? false)
-            {               
+            {
                 _Repository.AddClient((_AddClient.DataContext as AddClientViewModel).ClientType,
                    (_AddClient.DataContext as AddClientViewModel).FirsName,
                    (_AddClient.DataContext as AddClientViewModel).MiddleName,
-                    (_AddClient.DataContext as AddClientViewModel).LastName,
-                    (_AddClient.DataContext as AddClientViewModel).Town);
+                   (_AddClient.DataContext as AddClientViewModel).LastName,
+                   (_AddClient.DataContext as AddClientViewModel).Town);
 
             }
 
@@ -151,13 +151,7 @@ namespace BankClientOperation
         public ObservableCollection<T> Clients
         {
             get => _Clients;
-            set { 
-
-                //_Clients = value;
-                Set(ref _Clients, value);
-          
-            }
-
+            set => Set(ref _Clients, value);
         }
         public T SelectedClientFrom
         {
