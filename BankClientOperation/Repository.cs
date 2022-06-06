@@ -21,7 +21,7 @@ namespace BankClientOperation
 
         }
 
-        public void AddAccount(BaseAccount baseAccount)
+        public void AddAccount(BaseAccount<BaseClient> baseAccount)
         {
             _ClientsBase.Accounts.Add(baseAccount);
         
@@ -37,9 +37,9 @@ namespace BankClientOperation
 
             return ObsClients;
         }
-        public ObservableCollection<BaseAccount> GetAccounts(Guid guid)
+        public ObservableCollection<BaseAccount<BaseClient>> GetAccounts(Guid guid)
         {
-            ObservableCollection<BaseAccount> ObsAccount = new();
+            ObservableCollection<BaseAccount<BaseClient>> ObsAccount = new();
             foreach (var a in _ClientsBase.Accounts.Where(e => e.OwnerId == guid && e.IsActive))
             {
                 ObsAccount.Add(a);
@@ -72,7 +72,7 @@ namespace BankClientOperation
             }
             JsonBase.SaveBase(_ClientsBase, _Path);
         }
-        public void OpenAccount<A>(A Account) where A : BaseAccount
+        public void OpenAccount<A>(A Account) where A : BaseAccount<BaseClient>
         {
             Account.NumAccount = GenIdAccount();
             _ClientsBase.Accounts.Add(Account);

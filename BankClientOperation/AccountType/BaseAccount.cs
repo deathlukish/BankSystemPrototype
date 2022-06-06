@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public abstract class BaseAccount : INotifyPropertyChanged
+    public abstract class BaseAccount<S> : INotifyPropertyChanged
+        where S:BaseClient
+        
     {
         private float _Balance;
         public long NumAccount { get; set; }

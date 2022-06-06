@@ -15,10 +15,10 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount> _AccountsFrom;
-        private ObservableCollection<BaseAccount> _AccountsTo;
-        private BaseAccount _SelectedAccountFrom;
-        private BaseAccount _SelectedAccountTo;
+        private ObservableCollection<BaseAccount<BaseClient>> _AccountsFrom;
+        private ObservableCollection<BaseAccount<T>> _AccountsTo;
+        private BaseAccount<T> _SelectedAccountFrom;
+        private BaseAccount<T> _SelectedAccountTo;
         private T _SelectedClientFrom;
         private T _SelectedClientTo;
         private float _ReplenishSum;
@@ -136,13 +136,13 @@ namespace BankClientOperation
             else return false;
         
         }
-        public BaseAccount SelectedAccountFrom
+        public BaseAccount<T> SelectedAccountFrom
         {
 
             get => _SelectedAccountFrom;
             set => Set(ref _SelectedAccountFrom, value);
         }
-        public ObservableCollection<BaseAccount> AccountsFrom
+        public ObservableCollection<BaseAccount<BaseClient>> AccountsFrom
         {
             get => _AccountsFrom;
             set => Set(ref _AccountsFrom, value);

@@ -17,7 +17,7 @@ namespace BankClientOperation
 
 
         public VipClient(string First, string Middle, string Last, string Town) :
-            this(Guid.NewGuid(), First, Middle, Last, Town, null, true)
+            this(Guid.NewGuid(), First, Middle, Last, Town, true)
         {
             //this.IdClient = Guid.NewGuid();
             //this.IsActive = true;
@@ -28,8 +28,8 @@ namespace BankClientOperation
 
 
         }
-        public VipClient(Guid IdClient, string First, string Middle, string Last, string Town, List<BaseAccount> Accounts, bool IsActive) :
-            base(IdClient, First, Middle, Last, Town, Accounts, IsActive)
+        public VipClient(Guid IdClient, string First, string Middle, string Last, string Town,  bool IsActive) :
+            base(IdClient, First, Middle, Last, Town, IsActive)
         {
             //this.IdClient = IdClient;
             //this.IsActive = IsActive;

@@ -15,8 +15,8 @@ namespace BankClientOperation
         public void AddClient(BaseClient baseClient);
 
         public List<BaseClient> GetClients();
-        public List<BaseAccount> GetAccounts(Guid IdClient);
-        public void AddAccount(BaseAccount baseAccount);
+      //  public List<BaseAccount> GetAccounts(Guid IdClient);
+       // public void AddAccount(BaseAccount baseAccount);
 
     }
 }

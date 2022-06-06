@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public class Deposite : BaseAccount
+    public class Deposite : BaseAccount<BaseClient>
     {
 
         public Deposite() : base()

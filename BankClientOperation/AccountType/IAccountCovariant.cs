@@ -8,7 +8,7 @@ namespace BankClientOperation.AccountType
 {
     interface IAccountCovariant<R, out T>
         where R: BaseClient
-        where T: BaseAccount
+        where T: BaseAccount<R>
     {
 
         public void PutMoney(double Money);

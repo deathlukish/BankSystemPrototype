@@ -10,7 +10,7 @@ namespace BankClientOperation.BaseLoad
     internal class BaseToLoad
     {
         public ObservableCollection<BaseClient> Clients { get; set; } = new ObservableCollection<BaseClient>();
-        public ObservableCollection<BaseAccount> Accounts { get; set; } = new ObservableCollection<BaseAccount>();
+        public ObservableCollection<BaseAccount<BaseClient>> Accounts { get; set; } = new ObservableCollection<BaseAccount<BaseClient>>();
 
     }
 }
