@@ -8,7 +8,8 @@ namespace BankClientOperation
 {
     public class VipClient:BaseClient
     {
-
+        private List<BaseAccount<VipClient>> _Accounts;
+        public List<BaseAccount<VipClient>> Accounts { get => _Accounts; set => _Accounts = value; }
         public override bool IsCanChange { get; set; } = false;
         public VipClient() : base()
         {

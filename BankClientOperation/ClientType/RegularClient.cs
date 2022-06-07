@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
+
     public class RegularClient : BaseClient
     {
 
-     
+        private List<BaseAccount<RegularClient>> _Accounts;
 
-
+        public List<BaseAccount<RegularClient>> Accounts { get => _Accounts; set => _Accounts = value; }
         public RegularClient() : base()
         {
 

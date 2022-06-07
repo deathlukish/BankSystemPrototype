@@ -13,7 +13,7 @@ namespace BankClientOperation
         private string _Last;
         private string _Town;
         private bool _IsActive;
-       // private List<BaseAccount<>> _Accounts;
+       // private List<BaseAccount> _Accounts;
         public Guid IdClient { get; set; }
         public string First { get => _First; set => Set(ref _First, value); }
         public string Middle { get => _Middle; set => Set(ref _Middle, value); }

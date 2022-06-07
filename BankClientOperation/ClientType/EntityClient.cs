@@ -9,12 +9,12 @@ namespace BankClientOperation
 {
     public class EntityClient:BaseClient
     {
-
+        private List<BaseAccount<EntityClient>> _Accounts;
         public EntityClient() : base()
         { 
         
         }
-
+        public List<BaseAccount<EntityClient>> Accounts { get => _Accounts; set => _Accounts = value; }
 
         public EntityClient(string First, string Middle, string Last, string Town):
             this(Guid.NewGuid(), First, Middle, Last, Town, true)

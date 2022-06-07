@@ -15,7 +15,7 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount<BaseClient>> _AccountsFrom;
+        private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
         private ObservableCollection<BaseAccount<T>> _AccountsTo;
         private BaseAccount<T> _SelectedAccountFrom;
         private BaseAccount<T> _SelectedAccountTo;
@@ -50,15 +50,15 @@ namespace BankClientOperation
         private void OnOpenDeposite(object p)
         {
 
-            _Repository.OpenAccount(new Deposite(SelectedClientFrom.IdClient));
-            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+           // _Repository.OpenAccount(new Deposite<T>(SelectedClientFrom.IdClient));
+           // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
 
 
         }
         private void OnOpenNoDeposite(object p)
         {
-            _Repository.OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
-            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+           // _Repository.OpenAccount(new NoDeposite<T>(SelectedClientFrom.IdClient));
+           // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
         }
         private void OnSaveChange(object p)
         {
@@ -68,7 +68,7 @@ namespace BankClientOperation
         private void OnCloseAccount(object p)
         {
             _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
-            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
+           // AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }
         private void OnDelClientCommand(object p)
@@ -80,7 +80,7 @@ namespace BankClientOperation
         {
 
             _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
-            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
+          //  AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }
         private bool CanAddClient(object p) => true;
@@ -89,7 +89,7 @@ namespace BankClientOperation
 
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is Deposite) == 0) return true;
+                if (AccountsFrom.Count(e => e is Deposite<T>) == 0) return true;
             }
             return false;
 
@@ -99,7 +99,7 @@ namespace BankClientOperation
         {
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is NoDeposite) == 0) return true;
+                if (AccountsFrom.Count(e => e is NoDeposite<T>) == 0) return true;
             }
             return false;
         }
@@ -142,7 +142,7 @@ namespace BankClientOperation
             get => _SelectedAccountFrom;
             set => Set(ref _SelectedAccountFrom, value);
         }
-        public ObservableCollection<BaseAccount<BaseClient>> AccountsFrom
+        public ObservableCollection<BaseAccount<T>> AccountsFrom
         {
             get => _AccountsFrom;
             set => Set(ref _AccountsFrom, value);
@@ -159,7 +159,7 @@ namespace BankClientOperation
             set
             {
                 Set(ref _SelectedClientFrom, value);
-                AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+               // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
              
             }
 
