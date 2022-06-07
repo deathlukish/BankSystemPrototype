@@ -16,7 +16,7 @@ namespace BankClientOperation
         }
         
         
-        public Deposite(Guid OwnerId, int Num, float Balance)
+        public Deposite(Guid OwnerId, ulong Num, float Balance)
         {
             
             this.OwnerId = OwnerId;
@@ -25,7 +25,7 @@ namespace BankClientOperation
 
         }
 
-        public Deposite(Guid OwnerId) : this(OwnerId, 0, 0)
+        public Deposite(Guid guid,ulong Num) : this(guid,Num, 0)
         {
 
             this.IsActive = true;

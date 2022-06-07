@@ -49,7 +49,7 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-            SelectedClientFrom.AddAccount(new Deposite<T>());
+            SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId<T>()));
             //_Repository.OpenAccount(new Deposite<T>(), SelectedClientFrom);
             // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
             _Repository.SaveBase();
@@ -57,6 +57,8 @@ namespace BankClientOperation
         }
         private void OnOpenNoDeposite(object p)
         {
+            SelectedClientFrom.AddAccount(new NoDeposite<T>());
+            _Repository.SaveBase();
            // _Repository.OpenAccount(new NoDeposite<T>(SelectedClientFrom.IdClient));
            // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
         }
@@ -67,7 +69,7 @@ namespace BankClientOperation
 
         private void OnCloseAccount(object p)
         {
-            _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
+          //  _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
            // AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }
@@ -79,7 +81,7 @@ namespace BankClientOperation
         private void OnReplanishAccount(object p)
         {
 
-            _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
+           // _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
           //  AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }

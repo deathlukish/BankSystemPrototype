@@ -14,7 +14,7 @@ namespace BankClientOperation
         
     {
         private float _Balance;
-        public long NumAccount { get; set; }
+        public ulong NumAccount { get; set; }
         public Guid OwnerId { get; set; }
         public float Balance 
         { 

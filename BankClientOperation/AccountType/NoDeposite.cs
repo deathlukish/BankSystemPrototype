@@ -12,7 +12,7 @@ namespace BankClientOperation
 
         public NoDeposite() { }
         
-        public NoDeposite(Guid OwnerId, int Num, float Balance)
+        public NoDeposite(Guid OwnerId, ulong Num, float Balance)
         {
 
             this.OwnerId = OwnerId;
