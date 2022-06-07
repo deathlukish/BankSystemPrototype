@@ -1,13 +1,14 @@
 ﻿using BankClientOperation.AccountType;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BankClientOperation
 {
     public class VipClient : BaseClient, IBankAccount<VipClient>
     {       
-        private List<BaseAccount<VipClient>> _Accounts = new();
-        public List<BaseAccount<VipClient>> Accounts { get => _Accounts; set => _Accounts = value; }
+        private ObservableCollection<BaseAccount<VipClient>> _Accounts = new();
+        public ObservableCollection<BaseAccount<VipClient>> Accounts { get => _Accounts; set => _Accounts = value; }
         public override bool IsCanChange { get; set; } = false;
 
         public VipClient() : base()
@@ -29,7 +30,7 @@ namespace BankClientOperation
 
         public void AddAccount(BaseAccount<VipClient> account)
         {
-            throw new NotImplementedException();
+            _Accounts.Add(account);
         }
 
         public void RemoveAccount(BaseAccount<VipClient> account)

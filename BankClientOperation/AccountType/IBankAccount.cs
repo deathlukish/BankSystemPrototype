@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,6 @@ namespace BankClientOperation.AccountType
         /// <returns>рзультат выполнения / не выполнения команды</returns>
         public void RemoveAccount(BaseAccount<T> account);
 
-        public List<BaseAccount<T>> Accounts { get; set; } 
+        public ObservableCollection<BaseAccount<T>> Accounts { get; set; } 
     }
 }

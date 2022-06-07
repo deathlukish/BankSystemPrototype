@@ -23,7 +23,6 @@ namespace BankClientOperation
         private T _SelectedClientFrom;
         private T _SelectedClientTo;
         private float _ReplenishSum;
-        private T Client;
         private string _FirstName;
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
@@ -50,7 +49,7 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-            SelectedClientFrom.Accounts.Add(new Deposite<T>());
+            SelectedClientFrom.AddAccount(new Deposite<T>());
             //_Repository.OpenAccount(new Deposite<T>(), SelectedClientFrom);
             // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
             _Repository.SaveBase();

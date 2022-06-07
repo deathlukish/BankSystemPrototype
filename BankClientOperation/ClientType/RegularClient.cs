@@ -1,13 +1,14 @@
 ﻿using BankClientOperation.AccountType;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BankClientOperation
 {
     public class RegularClient : BaseClient, IBankAccount<RegularClient>
     {
-        private List<BaseAccount<RegularClient>> _Accounts = new();
-        public List<BaseAccount<RegularClient>> Accounts { get => _Accounts; set => _Accounts = value; }
+        private ObservableCollection<BaseAccount<RegularClient>> _Accounts = new();
+        public ObservableCollection<BaseAccount<RegularClient>> Accounts { get => _Accounts; set => _Accounts = value; }
 
         public RegularClient() : base()
         {
@@ -31,7 +32,7 @@ namespace BankClientOperation
 
         public void AddAccount(BaseAccount<RegularClient> account)
         {
-            throw new NotImplementedException();
+            _Accounts.Add(account);
         }
 
         public void RemoveAccount(BaseAccount<RegularClient> account)
