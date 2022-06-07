@@ -1,4 +1,5 @@
-﻿using BankSystemPrototype;
+﻿using BankClientOperation.AccountType;
+using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using BankSystemPrototype.ViewModels;
 using System;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 namespace BankClientOperation
 {
     internal class MainWindowViewModel<T> : ViewModel
-        where T : BaseClient
+        where T : BaseClient, IBankAccount<T>
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
@@ -49,10 +50,10 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-
-           // _Repository.OpenAccount(new Deposite<T>(SelectedClientFrom.IdClient));
-           // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
-
+            SelectedClientFrom.Accounts.Add(new Deposite<T>());
+            //_Repository.OpenAccount(new Deposite<T>(), SelectedClientFrom);
+            // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+            _Repository.SaveBase();
 
         }
         private void OnOpenNoDeposite(object p)

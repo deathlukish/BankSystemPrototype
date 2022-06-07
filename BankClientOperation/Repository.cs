@@ -72,11 +72,12 @@ namespace BankClientOperation
             }
             JsonBase.SaveBase(_ClientsBase, _Path);
         }
-        public void OpenAccount<A>(A Account) where A : BaseAccount<BaseClient>
+        public void OpenAccount(BaseAccount<BaseClient> Account, BaseClient client)
         {
           //  Account.NumAccount = GenIdAccount();
            // _ClientsBase.Accounts.Add(Account);
-            JsonBase.SaveBase(_ClientsBase, _Path);
+            //_ClientsBase[_ClientsBase.IndexOf(client)]
+            //JsonBase.SaveBase(_ClientsBase, _Path);
 
         }
         //private long GenIdAccount()

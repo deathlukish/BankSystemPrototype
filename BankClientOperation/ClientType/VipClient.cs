@@ -1,45 +1,40 @@
-﻿using System;
+﻿using BankClientOperation.AccountType;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public class VipClient:BaseClient
-    {
-        private List<BaseAccount<VipClient>> _Accounts;
+    public class VipClient : BaseClient, IBankAccount<VipClient>
+    {       
+        private List<BaseAccount<VipClient>> _Accounts = new();
         public List<BaseAccount<VipClient>> Accounts { get => _Accounts; set => _Accounts = value; }
         public override bool IsCanChange { get; set; } = false;
+
         public VipClient() : base()
         {
 
         }
 
-
         public VipClient(string First, string Middle, string Last, string Town) :
             this(Guid.NewGuid(), First, Middle, Last, Town, true)
         {
-            //this.IdClient = Guid.NewGuid();
-            //this.IsActive = true;
-            //this.First = First;
-            //this.Middle = Middle;
-            //this.Last = Last;
-            //this.Town = Town;
 
 
         }
         public VipClient(Guid IdClient, string First, string Middle, string Last, string Town,  bool IsActive) :
             base(IdClient, First, Middle, Last, Town, IsActive)
         {
-            //this.IdClient = IdClient;
-            //this.IsActive = IsActive;
-            //this.First = First;
-            //this.Middle = Middle;
-            //this.Last = Last;
-            //this.Town = Town;
 
+        }
 
+        public void AddAccount(BaseAccount<VipClient> account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAccount(BaseAccount<VipClient> account)
+        {
+            throw new NotImplementedException();
         }
     }
 }
