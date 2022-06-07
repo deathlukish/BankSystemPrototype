@@ -1,6 +1,8 @@
 ﻿
+using BankClientOperation.AccountType;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -13,7 +15,7 @@ namespace BankClientOperation
         private string _Last;
         private string _Town;
         private bool _IsActive;
-       // private List<BaseAccount> _Accounts;
+       /// private List<BaseAccount> _Accounts;
         public Guid IdClient { get; set; }
         public string First { get => _First; set => Set(ref _First, value); }
         public string Middle { get => _Middle; set => Set(ref _Middle, value); }
@@ -21,7 +23,8 @@ namespace BankClientOperation
         public  string Town { get => _Town; set => Set(ref _Town, value); }
         public bool IsActive { get => _IsActive; set => Set(ref _IsActive, value); }
         public virtual bool IsCanChange { get; set; } = true;
-       // public List<BaseAccount> Accounts { get => _Accounts; set => Set(ref _Accounts, value); }
+        //private ObservableCollection<BaseAccount<BaseClient>> _Accounts = new ObservableCollection<BaseAccount<BaseClient>>();
+        //public ObservableCollection<BaseAccount<BaseClient>> Accounts { get => _Accounts; set => _Accounts = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
@@ -36,6 +39,17 @@ namespace BankClientOperation
             return true;
 
         }
+
+        public void AddAccount(BaseAccount<BaseClient> account)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAccount(BaseAccount<BaseClient> account)
+        {
+            throw new NotImplementedException();
+        }
+
         public BaseClient()
         {
         
