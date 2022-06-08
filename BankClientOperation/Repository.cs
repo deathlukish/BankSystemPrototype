@@ -113,10 +113,14 @@ namespace BankClientOperation
             ulong maxId = 0;
             foreach (var client in _ClientsBase)
             {
-                if ((client as IBankAccount<T>).Accounts?.Count > 0)
+                if (client is IBankAccount<T>)
                 {
-                    ulong max = (client as IBankAccount<T>).Accounts?.Max(i => i.NumAccount) ?? 0;
-                    maxId = maxId < max ? max : maxId;
+                    if ((client as IBankAccount<T>).Accounts?.Count > 0)
+
+                    {
+                        ulong max = (client as IBankAccount<T>).Accounts?.Max(i => i.NumAccount) ?? 0;
+                        maxId = maxId < max ? max : maxId;
+                    }
                 }
             }
             return ++maxId;

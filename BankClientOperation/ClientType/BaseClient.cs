@@ -40,15 +40,6 @@ namespace BankClientOperation
 
         }
 
-        public void AddAccount(BaseAccount<BaseClient> account)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAccount(BaseAccount<BaseClient> account)
-        {
-            throw new NotImplementedException();
-        }
 
         public BaseClient()
         {
