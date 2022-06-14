@@ -108,17 +108,36 @@ namespace BankClientOperation
           //  _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).Balance += Sum;
             SaveBase();
         }
-        public ulong GenId<T>() where T: BaseClient
+        public ulong GenId()
         {
+            
             ulong maxId = 0;
             foreach (var client in _ClientsBase)
             {
-                if (client is IBankAccount<T>)
+                if (client is IBankAccount<EntityClient>)
                 {
-                    if ((client as IBankAccount<T>).Accounts?.Count > 0)
+                    if ((client as IBankAccount<EntityClient>).Accounts?.Count > 0)
 
                     {
-                        ulong max = (client as IBankAccount<T>).Accounts?.Max(i => i.NumAccount) ?? 0;
+                        ulong max = (client as IBankAccount<EntityClient>).Accounts?.Max(i => i.NumAccount) ?? 0;
+                        maxId = maxId < max ? max : maxId;
+                    }
+                }
+                if (client is IBankAccount<VipClient>)
+                {
+                    if ((client as IBankAccount<VipClient>).Accounts?.Count > 0)
+
+                    {
+                        ulong max = (client as IBankAccount<VipClient>).Accounts?.Max(i => i.NumAccount) ?? 0;
+                        maxId = maxId < max ? max : maxId;
+                    }
+                }
+                if (client is IBankAccount<RegularClient>)
+                {
+                    if ((client as IBankAccount<RegularClient>).Accounts?.Count > 0)
+
+                    {
+                        ulong max = (client as IBankAccount<RegularClient>).Accounts?.Max(i => i.NumAccount) ?? 0;
                         maxId = maxId < max ? max : maxId;
                     }
                 }

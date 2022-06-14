@@ -38,7 +38,8 @@ namespace BankClientOperation
             _AddClient.ShowDialog();
             if (_AddClient.DialogResult ?? false)
             {
-                _Repository.AddClient((_AddClient.DataContext as AddClientViewModel).ClientType,
+                _Repository.AddClient(
+                   (_AddClient.DataContext as AddClientViewModel).ClientType,
                    (_AddClient.DataContext as AddClientViewModel).FirsName,
                    (_AddClient.DataContext as AddClientViewModel).MiddleName,
                    (_AddClient.DataContext as AddClientViewModel).LastName,
@@ -49,7 +50,7 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-            SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId<T>()));
+            SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
             //_Repository.OpenAccount(new Deposite<T>(), SelectedClientFrom);
             // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
             _Repository.SaveBase();
