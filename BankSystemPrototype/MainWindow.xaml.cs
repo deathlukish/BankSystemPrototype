@@ -11,6 +11,7 @@ namespace BankSystemPrototype
         public MainWindow()
         {
             InitializeComponent();
+
         }
     }
 }

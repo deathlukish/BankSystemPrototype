@@ -7,6 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GridSplitter Grid.Column="1" Width="3"></GridSplitter>
+        <GridSplitter Grid.Column="0" Width="3"></GridSplitter>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="cbxDepartament" Grid.Column="0" Grid.Row="0" Margin="5"></ComboBox>
+            <ListBox x:Name="listClients" Grid.Column="0" Grid.Row="1" Margin="5"></ListBox>
+            <ListBox x:Name="listФссщгтеы" Grid.Column="0" Grid.Row="2" Margin="5"></ListBox>
+        </Grid>
     </Grid>
+    
 </Window>
