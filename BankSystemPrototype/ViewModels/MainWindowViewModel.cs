@@ -51,17 +51,13 @@ namespace BankClientOperation
         private void OnOpenDeposite(object p)
         {
             SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
-            //_Repository.OpenAccount(new Deposite<T>(), SelectedClientFrom);
-            // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
             _Repository.SaveBase();
 
         }
         private void OnOpenNoDeposite(object p)
         {
-            SelectedClientFrom.AddAccount(new NoDeposite<T>());
+            SelectedClientFrom.AddAccount(new NoDeposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
             _Repository.SaveBase();
-           // _Repository.OpenAccount(new NoDeposite<T>(SelectedClientFrom.IdClient));
-           // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
         }
         private void OnSaveChange(object p)
         {
@@ -92,7 +88,7 @@ namespace BankClientOperation
 
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is Deposite<T>) == 0) return true;
+                if (SelectedClientFrom.Accounts.Count(e => e is Deposite<T>) == 0) return true;
             }
             return false;
 
@@ -102,7 +98,7 @@ namespace BankClientOperation
         {
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is NoDeposite<T>) == 0) return true;
+                if (SelectedClientFrom.Accounts.Count(e => e is NoDeposite<T>) == 0) return true;
             }
             return false;
         }

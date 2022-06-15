@@ -29,7 +29,13 @@ namespace BankClientOperation
             this.NumAccount = NumAccount;
 
         }
+        public NoDeposite(Guid guid, ulong Num) : this(guid, Num, 0)
+        {
 
+            this.IsActive = true;
+
+
+        }
 
     }
 }
