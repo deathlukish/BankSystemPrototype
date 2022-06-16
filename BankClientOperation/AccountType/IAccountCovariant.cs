@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation.AccountType
 {
-    interface IAccountCovariant<R, out T>
+    public interface IAccountCovariant<R, out T>
         where R: BaseClient
         where T: BaseAccount<R>
     {
-
-        public void PutMoney(double Money);
+        T GetValue { get; }
+        public void PutMoney(float Money);
     }
 }

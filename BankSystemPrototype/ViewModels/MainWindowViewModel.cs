@@ -77,7 +77,7 @@ namespace BankClientOperation
         }
         private void OnReplanishAccount(object p)
         {
-
+            PutMoneyToAccount(p as IAccountCovariant<T, BaseAccount<T>>);
            // _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
           //  AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
@@ -141,12 +141,12 @@ namespace BankClientOperation
             get => _SelectedAccountFrom;
             set => Set(ref _SelectedAccountFrom, value);
         }
-        public ObservableCollection<BaseAccount<T>> AccountsFrom
-        {
-            get => _AccountsFrom;
-            set => Set(ref _AccountsFrom, value);
+        //public ObservableCollection<BaseAccount<T>> AccountsFrom
+        //{
+        //    get => _AccountsFrom;
+        //    set => Set(ref _AccountsFrom, value);
 
-        }
+        //}
         public ObservableCollection<T> Clients
         {
             get => _Clients;
@@ -185,6 +185,17 @@ namespace BankClientOperation
             set => Set(ref _ReplenishSum, value);
 
         }
+
+        private void PutMoneyToAccount(IAccountCovariant<T, BaseAccount<T>> account)
+        {
+            if (account != null)
+            {
+                account.PutMoney(ReplenishSum);
+                ReplenishSum = 0.0F;
+            }
+
+        }
+
 
     }
 }

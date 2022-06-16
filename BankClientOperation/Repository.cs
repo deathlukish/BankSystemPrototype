@@ -38,16 +38,6 @@ namespace BankClientOperation
 
             return ObsClients;
         }
-        //public List<BaseClient> GetAccounts(Guid guid)
-        //{
-        //    List<BaseClient> ObsAccount = new();
-        //    foreach (var a in _ClientsBase.Where(e => e.OwnerId == guid && e.IsActive))
-        //    {
-        //        ObsAccount.Add(a);
-        //    }
-        //    return ObsAccount;
-
-        //}
         public void SaveBase()
         {
             JsonBase.SaveBase(_ClientsBase, _Path);
@@ -111,7 +101,7 @@ namespace BankClientOperation
         public ulong GenId()
         {
             
-            ulong maxId = 0;
+            ulong maxId = 1_000_000_000;
             foreach (var client in _ClientsBase)
             {
                 if (client is IBankAccount<EntityClient>)
