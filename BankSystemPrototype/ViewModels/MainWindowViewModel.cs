@@ -16,7 +16,7 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<T> _ClientsTo = new();
+        // private ObservableCollection<T> _ClientsTo = new();
         //private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
         //private ObservableCollection<BaseAccount<T>> _AccountsTo;
         private BaseAccount<T> _SelectedAccountFrom;
@@ -163,11 +163,11 @@ namespace BankClientOperation
             get => _SelectedClientTo;
             set => Set(ref _SelectedClientTo, value);
         }
-        public ObservableCollection<T> ClientsTo
-        {
-            get => _ClientsTo;
-            set => Set(ref _ClientsTo, value);
-        }
+        //public ObservableCollection<T> ClientsTo
+        //{
+        //    get => _ClientsTo;
+        //    set => Set(ref _ClientsTo, value);
+        //}
 
 
         public BaseAccount<T> SelectedAccountTo
@@ -179,15 +179,11 @@ namespace BankClientOperation
         }
         private void GetClients()
         {
-            //foreach (var a in _Repository.GetClient())
-            //{
-            //    _AllClients.Add(a);
-            //}
-            
+
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
                 _Clients.Add((T)a);
-                _ClientsTo.Add((T)a);
+                
             }
 
         }
