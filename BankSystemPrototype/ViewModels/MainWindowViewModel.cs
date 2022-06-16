@@ -77,10 +77,8 @@ namespace BankClientOperation
         }
         private void OnReplanishAccount(object p)
         {
+                      
             PutMoneyToAccount(p as IAccountCovariant<T, BaseAccount<T>>);
-           // _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
-          //  AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
-
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
@@ -195,7 +193,11 @@ namespace BankClientOperation
             }
 
         }
+        private void TransAccountToAccount(IAccountContrVariant<T, BaseAccount<T>> fromAccount, BaseAccount<T> toAccount)
+        {
 
+            fromAccount.TransAccountToAccount(toAccount, ReplenishSum);
+        }
 
     }
 }

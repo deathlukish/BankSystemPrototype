@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankClientOperation.AccountType;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public abstract class BaseAccount<S> : INotifyPropertyChanged
+    public abstract class BaseAccount<S> : INotifyPropertyChanged, IAccountContrVariant<S, BaseAccount<S>>
         where S:BaseClient
         
     {
@@ -41,6 +42,11 @@ namespace BankClientOperation
             OnpropertyChanged(PropertyName);
             return true;
 
+        }
+
+        public void TransAccountToAccount(BaseAccount<S> toAccount, float Summ)
+        {
+            throw new NotImplementedException();
         }
     }
 }
