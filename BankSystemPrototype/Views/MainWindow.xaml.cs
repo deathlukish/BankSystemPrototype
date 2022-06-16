@@ -20,6 +20,7 @@ namespace BankSystemPrototype
             InitializeComponent();
             ClientType.ItemsSource = Enum.GetValues(typeof(ClientTypeEnum));
             ClientType.SelectedItem = ClientTypeEnum.Regular;
+
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -44,8 +45,7 @@ namespace BankSystemPrototype
                     break;
 
             }
-
-        }
+        }        
     }
 }
 
