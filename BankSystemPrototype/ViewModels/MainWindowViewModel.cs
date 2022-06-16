@@ -16,14 +16,14 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
-        private ObservableCollection<BaseAccount<T>> _AccountsTo;
+        private ObservableCollection<BaseClient> _AllClients = new();
+        //private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
+        //private ObservableCollection<BaseAccount<T>> _AccountsTo;
         private BaseAccount<T> _SelectedAccountFrom;
         private BaseAccount<T> _SelectedAccountTo;
         private T _SelectedClientFrom;
-        private T _SelectedClientTo;
+        private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
-        private string _FirstName;
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
@@ -139,12 +139,7 @@ namespace BankClientOperation
             get => _SelectedAccountFrom;
             set => Set(ref _SelectedAccountFrom, value);
         }
-        //public ObservableCollection<BaseAccount<T>> AccountsFrom
-        //{
-        //    get => _AccountsFrom;
-        //    set => Set(ref _AccountsFrom, value);
 
-        //}
         public ObservableCollection<T> Clients
         {
             get => _Clients;
@@ -162,19 +157,38 @@ namespace BankClientOperation
 
 
         }
-        public string FirsName 
+
+        public BaseClient SelectedClientTo
         {
-            get => _FirstName;
-            set => Set(ref _FirstName, value);
+            get => _SelectedClientTo;
+            set => Set(ref _SelectedClientTo, value);
+        }
+        public ObservableCollection<BaseClient> AllClients
+        {
+            get => _AllClients;
+            set => Set(ref _AllClients, value);
         }
 
-        
+
+        public BaseAccount<T> SelectedAccountTo
+        {
+            get => _SelectedAccountTo;
+            set => Set(ref _SelectedAccountTo, value);
+
+
+        }
         private void GetClients()
         {
+            foreach (var a in _Repository.GetClient())
+            {
+                _AllClients.Add(a);
+            }
+            
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
                 _Clients.Add((T)a);
             }
+
         }
 
         public float ReplenishSum
