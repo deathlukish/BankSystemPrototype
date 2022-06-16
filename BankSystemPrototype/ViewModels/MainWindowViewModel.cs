@@ -1,4 +1,5 @@
-﻿using BankSystemPrototype;
+﻿using BankClientOperation.AccountType;
+using BankSystemPrototype;
 using BankSystemPrototype.Commands;
 using BankSystemPrototype.ViewModels;
 using System;
@@ -11,19 +12,18 @@ using System.Windows.Input;
 namespace BankClientOperation
 {
     internal class MainWindowViewModel<T> : ViewModel
-        where T : BaseClient
+        where T : BaseClient, IBankAccount<T>
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        private ObservableCollection<BaseAccount> _AccountsFrom;
-        private ObservableCollection<BaseAccount> _AccountsTo;
-        private BaseAccount _SelectedAccountFrom;
-        private BaseAccount _SelectedAccountTo;
+        // private ObservableCollection<T> _ClientsTo = new();
+        //private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
+        //private ObservableCollection<BaseAccount<T>> _AccountsTo;
+        private BaseAccount<T> _SelectedAccountFrom;
+        private BaseAccount<T> _SelectedAccountTo;
         private T _SelectedClientFrom;
-        private T _SelectedClientTo;
+        private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
-        private T Client;
-        private string _FirstName;
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
@@ -38,7 +38,8 @@ namespace BankClientOperation
             _AddClient.ShowDialog();
             if (_AddClient.DialogResult ?? false)
             {
-                _Repository.AddClient((_AddClient.DataContext as AddClientViewModel).ClientType,
+                _Repository.AddClient(
+                   (_AddClient.DataContext as AddClientViewModel).ClientType,
                    (_AddClient.DataContext as AddClientViewModel).FirsName,
                    (_AddClient.DataContext as AddClientViewModel).MiddleName,
                    (_AddClient.DataContext as AddClientViewModel).LastName,
@@ -49,16 +50,14 @@ namespace BankClientOperation
         }
         private void OnOpenDeposite(object p)
         {
-
-            _Repository.OpenAccount(new Deposite(SelectedClientFrom.IdClient));
-            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
-
+            SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
+            _Repository.SaveBase();
 
         }
         private void OnOpenNoDeposite(object p)
         {
-            _Repository.OpenAccount(new NoDeposite(SelectedClientFrom.IdClient));
-            AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+            SelectedClientFrom.AddAccount(new NoDeposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
+            _Repository.SaveBase();
         }
         private void OnSaveChange(object p)
         {
@@ -67,8 +66,8 @@ namespace BankClientOperation
 
         private void OnCloseAccount(object p)
         {
-            _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
-            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
+          //  _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
+           // AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
         }
         private void OnDelClientCommand(object p)
@@ -78,10 +77,8 @@ namespace BankClientOperation
         }
         private void OnReplanishAccount(object p)
         {
-
-            _Repository.ReplanishAccount(SelectedAccountFrom.NumAccount, ReplenishSum);
-            AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
-
+                      
+            PutMoneyToAccount(p as IAccountCovariant<T, BaseAccount<T>>);
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
@@ -89,7 +86,7 @@ namespace BankClientOperation
 
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is Deposite) == 0) return true;
+                if (SelectedClientFrom.Accounts.Count(e => e is Deposite<T>) == 0) return true;
             }
             return false;
 
@@ -99,7 +96,7 @@ namespace BankClientOperation
         {
             if (SelectedClientFrom != null)
             {
-                if (AccountsFrom.Count(e => e is NoDeposite) == 0) return true;
+                if (SelectedClientFrom.Accounts.Count(e => e is NoDeposite<T>) == 0) return true;
             }
             return false;
         }
@@ -136,18 +133,13 @@ namespace BankClientOperation
             else return false;
         
         }
-        public BaseAccount SelectedAccountFrom
+        public BaseAccount<T> SelectedAccountFrom
         {
 
             get => _SelectedAccountFrom;
             set => Set(ref _SelectedAccountFrom, value);
         }
-        public ObservableCollection<BaseAccount> AccountsFrom
-        {
-            get => _AccountsFrom;
-            set => Set(ref _AccountsFrom, value);
 
-        }
         public ObservableCollection<T> Clients
         {
             get => _Clients;
@@ -159,25 +151,41 @@ namespace BankClientOperation
             set
             {
                 Set(ref _SelectedClientFrom, value);
-                AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
+               // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
              
             }
 
 
         }
-        public string FirsName 
-        {
-            get => _FirstName;
-            set => Set(ref _FirstName, value);
-        }
 
-        
+        public BaseClient SelectedClientTo
+        {
+            get => _SelectedClientTo;
+            set => Set(ref _SelectedClientTo, value);
+        }
+        //public ObservableCollection<T> ClientsTo
+        //{
+        //    get => _ClientsTo;
+        //    set => Set(ref _ClientsTo, value);
+        //}
+
+
+        public BaseAccount<T> SelectedAccountTo
+        {
+            get => _SelectedAccountTo;
+            set => Set(ref _SelectedAccountTo, value);
+
+
+        }
         private void GetClients()
         {
+
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
                 _Clients.Add((T)a);
+                
             }
+
         }
 
         public float ReplenishSum
@@ -185,6 +193,22 @@ namespace BankClientOperation
             get => _ReplenishSum;
             set => Set(ref _ReplenishSum, value);
 
+        }
+
+        private void PutMoneyToAccount(IAccountCovariant<T, BaseAccount<T>> account)
+        {
+            if (account != null)
+            {
+                account.PutMoney(ReplenishSum);
+                ReplenishSum = 0.0F;
+            }
+            _Repository.SaveBase();
+        }
+        private void TransAccountToAccount(IAccountContrVariant<T, BaseAccount<T>> fromAccount, BaseAccount<T> toAccount)
+        {
+
+            fromAccount.TransAccountToAccount(toAccount, ReplenishSum);
+            _Repository.SaveBase();
         }
 
     }

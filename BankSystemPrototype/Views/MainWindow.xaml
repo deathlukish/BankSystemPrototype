@@ -36,7 +36,7 @@
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <ComboBox Grid.Row="0" Grid.Column="0" Margin="5" x:Name="ClientType" SelectedItem="{Binding ClientTypeEnum}" SelectionChanged="ClientType_SelectionChanged">
+            <ComboBox Grid.Row="0" Grid.Column="0" Margin="5" x:Name="ClientType" SelectionChanged="ClientType_SelectionChanged">
                 <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}"></TextBlock>
@@ -109,7 +109,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox ItemsSource="{Binding AccountsTo}" SelectedItem="{Binding SelectedAccountTo}" 
+        <ListBox ItemsSource="{Binding SelectedClientTo.Accounts}" SelectedItem="{Binding SelectedAccountTo}" 
                  x:Name="ListAccountTo" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="5,5,5,5">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="BaseAccount">
@@ -121,24 +121,25 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox  ItemsSource ="{Binding AccountsFrom}" SelectedItem="{Binding SelectedAccountFrom}" 
+        <ListBox  ItemsSource ="{Binding SelectedClientFrom.Accounts}" SelectedItem="{Binding SelectedAccountFrom}" 
                  x:Name="ListAccountFrom" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="5,5,5,5">
-            <ListBox.Resources>
-                <DataTemplate DataType="{x:Type clientType:NoDeposite}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
                     <StackPanel>
-                        <TextBlock Foreground="Red" Text="НеДепозитный счет" TextBlock.FontSize="10"></TextBlock>
+                        <!--<TextBlock Foreground="Red" Text="НеДепозитный счет" TextBlock.FontSize="10"></TextBlock>-->
                         <TextBlock Foreground="Red" Text="{Binding NumAccount}" TextBlock.FontSize="15"></TextBlock>
                         <TextBlock Foreground="Red" Text="{Binding Balance}" TextBlock.FontSize="15"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type clientType:Deposite}" >
+            </ListBox.ItemTemplate>
+            <!--<DataTemplate DataType="{x:Type clientType:Deposite}" >
                     <StackPanel>
                         <TextBlock Foreground="Green" Text="Депозитный счет" TextBlock.FontSize="10"></TextBlock>
                         <TextBlock Foreground="Green" Text="{Binding NumAccount}" TextBlock.FontSize="15"></TextBlock>
                         <TextBlock Foreground="Green" Text="{Binding Balance}" TextBlock.FontSize="15"></TextBlock>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.Resources>
+                </DataTemplate>-->
+            <!--</ListBox.Resources>-->
         </ListBox>
 
         <GridSplitter Grid.Column="0" Grid.RowSpan="4" HorizontalAlignment="Right" Width="3" MinHeight="100"></GridSplitter>
@@ -155,7 +156,7 @@
             <GroupBox  Grid.Row="0" Grid.Column="1" Margin="5" Header="Поплнение счета">
                 <UniformGrid  Columns="2">
                     <TextBox  PreviewTextInput="NumberValidationTextBox" Margin="2" Text="{Binding ReplenishSum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <Button  Margin="2" Content="Пополнить" Command="{Binding ReplanishAccount}" CommandParameter="{Binding SelectedClientFrom}"/>
+                    <Button  Margin="2" Content="Пополнить" Command="{Binding ReplanishAccount}" CommandParameter="{Binding SelectedAccountFrom}"/>
                 </UniformGrid>
             </GroupBox>
             <GroupBox  Grid.Row="1" Grid.Column="1" Margin="5" Header="Операции над счетами">
@@ -175,7 +176,7 @@
                     <TextBlock Text="{Binding SelectedAccountTo.NumAccount}"></TextBlock>
                 </UniformGrid>
             </GroupBox>
-            <GroupBox Header="Управление клиентами" Grid.Row="3">
+            <GroupBox Header="Управление клиентами" Margin="5" Grid.Row="3">
                 <UniformGrid  Columns="2">
                     <Button  Margin="2" Content="Добавить" Command="{Binding AddClientCommand}"></Button>
                     <Button  Margin="2" Content="Удалить" Command="{Binding DelClientCommand}"/>

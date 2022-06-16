@@ -1,16 +1,14 @@
-﻿using System;
+﻿using BankClientOperation.AccountType;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace BankClientOperation
 {
-    public class RegularClient : BaseClient
+    public class RegularClient : BaseClient, IBankAccount<RegularClient>
     {
-
-     
-
+        private ObservableCollection<BaseAccount<RegularClient>> _Accounts = new();
+        public ObservableCollection<BaseAccount<RegularClient>> Accounts { get => _Accounts; set => _Accounts = value; }
 
         public RegularClient() : base()
         {
@@ -19,28 +17,27 @@ namespace BankClientOperation
 
 
         public RegularClient(string First, string Middle, string Last, string Town) :
-            this(Guid.NewGuid(), First, Middle, Last, Town, null, true)
+            this(Guid.NewGuid(), First, Middle, Last, Town, true)
         {
-            //this.IdClient = Guid.NewGuid();
-            //this.IsActive = true;
-            //this.First = First;
-            //this.Middle = Middle;
-            //this.Last = Last;
-            //this.Town = Town;
 
 
         }
-        public RegularClient(Guid IdClient, string First, string Middle, string Last, string Town, List<BaseAccount> Accounts, bool IsActive) :
-            base(IdClient, First, Middle, Last, Town, Accounts, IsActive)
+        public RegularClient(Guid IdClient, string First, string Middle, string Last, string Town, bool IsActive) :
+            base(IdClient, First, Middle, Last, Town, IsActive)
         {
-            //this.IdClient = IdClient;
-            //this.IsActive = IsActive;
-            //this.First = First;
-            //this.Middle = Middle;
-            //this.Last = Last;
-            //this.Town = Town;
 
 
+
+        }
+
+        public void AddAccount(BaseAccount<RegularClient> account)
+        {
+            _Accounts.Add(account);
+        }
+
+        public void RemoveAccount(BaseAccount<RegularClient> account)
+        {
+            throw new NotImplementedException();
         }
     }
 }

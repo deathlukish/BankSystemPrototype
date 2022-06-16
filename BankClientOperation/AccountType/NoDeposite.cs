@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankClientOperation.AccountType;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public class NoDeposite : BaseAccount
+    public class NoDeposite<T> : BaseAccount<T>, IAccountCovariant<T, BaseAccount<T>>
+        where T: BaseClient
     {
+      //  public BaseAccount<T> GetValue => throw new NotImplementedException();
 
         public NoDeposite() { }
         
-        public NoDeposite(Guid OwnerId, int Num, float Balance)
+        public NoDeposite(Guid OwnerId, ulong Num, float Balance)
         {
 
             this.OwnerId = OwnerId;
@@ -28,7 +31,17 @@ namespace BankClientOperation
             this.NumAccount = NumAccount;
 
         }
+        public NoDeposite(Guid guid, ulong Num) : this(guid, Num, 0)
+        {
+
+            this.IsActive = true;
 
 
+        }
+
+        public void PutMoney(float Money)
+        {
+            Balance += Money;
+        }
     }
 }

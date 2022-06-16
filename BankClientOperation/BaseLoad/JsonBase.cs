@@ -13,15 +13,15 @@ namespace BankClientOperation
     internal static class JsonBase 
     {
         
-        public static void SaveBase(BaseToLoad BaseToSave, string Path)
+        public static void SaveBase(List<BaseClient> baseClients, string Path)
         {
-
+            List<BaseClient> clients = new();
             JsonSerializerSettings setting = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
 
             };
-            var jsonString = JsonConvert.SerializeObject(BaseToSave, Formatting.Indented, setting);
+            var jsonString = JsonConvert.SerializeObject(baseClients, Formatting.Indented, setting);
             using (StreamWriter fs = new StreamWriter(Path))
             {
                 fs.WriteLine(jsonString);
@@ -30,7 +30,7 @@ namespace BankClientOperation
 
     
 
-        public static BaseToLoad LoadDb(string Path)
+        public static List<BaseClient> LoadDb(string Path)
         {
             if (!File.Exists(Path))
             {
@@ -44,10 +44,10 @@ namespace BankClientOperation
                 TypeNameHandling = TypeNameHandling.All
 
             };
-            BaseToLoad clients = new();
+            List<BaseClient>  clients = new();
             using (StreamReader streamReader = new StreamReader(Path))
             {
-                clients = JsonConvert.DeserializeObject<BaseToLoad>(streamReader.ReadToEnd(), setting);
+                clients = JsonConvert.DeserializeObject<List<BaseClient>>(streamReader.ReadToEnd(), setting);
             
             }
             return clients;
