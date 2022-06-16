@@ -191,12 +191,13 @@ namespace BankClientOperation
                 account.PutMoney(ReplenishSum);
                 ReplenishSum = 0.0F;
             }
-
+            _Repository.SaveBase();
         }
         private void TransAccountToAccount(IAccountContrVariant<T, BaseAccount<T>> fromAccount, BaseAccount<T> toAccount)
         {
 
             fromAccount.TransAccountToAccount(toAccount, ReplenishSum);
+            _Repository.SaveBase();
         }
 
     }

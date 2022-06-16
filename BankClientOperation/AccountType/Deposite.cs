@@ -10,7 +10,7 @@ namespace BankClientOperation
     public class Deposite<T> : BaseAccount<T>, IAccountCovariant<T, BaseAccount<T>>
         where T: BaseClient
     {
-        public BaseAccount<T> GetValue => throw new NotImplementedException();
+       // public BaseAccount<T> GetValue => throw new NotImplementedException();
 
         public Deposite() : base()
         { 

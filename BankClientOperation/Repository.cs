@@ -22,12 +22,6 @@ namespace BankClientOperation
 
         }
 
-        public void AddAccount(BaseAccount<BaseClient> baseAccount)
-        {
-           // _ClientsBase.Accounts.Add(baseAccount);
-        
-        }
-
         public List<BaseClient> GetClient()
         {
             List<BaseClient> ObsClients = new();
@@ -63,41 +57,7 @@ namespace BankClientOperation
             }
             JsonBase.SaveBase(_ClientsBase, _Path);
         }
-        public void OpenAccount(BaseAccount<BaseClient> Account, BaseClient client)
-        {
-          //  Account.NumAccount = GenIdAccount();
-           // _ClientsBase.Accounts.Add(Account);
-            //_ClientsBase[_ClientsBase.IndexOf(client)]
-            //JsonBase.SaveBase(_ClientsBase, _Path);
-
-        }
-        //private long GenIdAccount()
-        //{
-        //    long Id = 100_000_000;
-        //    foreach (var a in _ClientsBase.Accounts)
-        //    {
-        //        if (a.NumAccount > Id)
-        //        {
-        //            Id = a.NumAccount;
-        //        }
-        //    }
-        //    Id++;
-        //    return Id;
-        //}
-
-        public void CloseAccount(long NumAccount)
-        {
-
-           // _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).IsActive = false;
-            SaveBase();
-
-        }
-        public void ReplanishAccount(long NumAccount, float Sum)
-        {
-
-          //  _ClientsBase.Accounts.FirstOrDefault(e => e.NumAccount == NumAccount).Balance += Sum;
-            SaveBase();
-        }
+ 
         public ulong GenId()
         {
             
