@@ -21,6 +21,7 @@ namespace BankClientOperation
         private T _SelectedClientFrom;
         private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
+        private float _TransSum;
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
@@ -117,7 +118,12 @@ namespace BankClientOperation
             if (ReplenishSum > 0 && SelectedAccountFrom != null) return true;
             else return false;
         }
-        private bool CanMoneyTransfer(object p) => true;
+        private bool CanMoneyTransfer(object p)
+        {
+            if (SelectedAccountFrom != null && SelectedAccountTo != null && TransSum != 0) return true;
+            else return false;
+        
+        }
         public MainWindowViewModel()
         {
             GetClients();
@@ -194,11 +200,18 @@ namespace BankClientOperation
 
         }
 
+        public float TransSum
+        {
+            get => _TransSum;
+            set => Set(ref _TransSum, value);
+
+        }
+
         private void PutMoneyToAccount(IAccountCovariant<T, BaseAccount<T>> account)
         {
             if (account != null)
             {
-                account.PutMoney(ReplenishSum);
+                account.PutMoney(TransSum);
                 ReplenishSum = 0.0F;
             }
             _Repository.SaveBase();
@@ -206,7 +219,8 @@ namespace BankClientOperation
         private void TransAccountToAccount(IAccountContrVariant<T, BaseAccount<T>> fromAccount, BaseAccount<T> toAccount)
         {
 
-            fromAccount.TransAccountToAccount(toAccount, ReplenishSum);
+            fromAccount.TransAccountToAccount(toAccount, TransSum);
+            TransSum = 0.0F;
             _Repository.SaveBase();
         }
 

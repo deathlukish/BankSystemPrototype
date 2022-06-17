@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public abstract class BaseAccount<S> : INotifyPropertyChanged, IAccountContrVariant<S, BaseAccount<S>>
-        where S:BaseClient
+    public abstract class BaseAccount<T> : INotifyPropertyChanged, IAccountContrVariant<T, BaseAccount<T>>
+        where T:BaseClient
         
     {
         private float _Balance;
@@ -44,14 +44,14 @@ namespace BankClientOperation
         }
         
 
-        public void TransAccountToAccount(BaseAccount<S> toAccount, float Summ)
+        public void TransAccountToAccount(BaseAccount<T> toAccount, float Summ)
         {
            
             if (toAccount != null)
             {
                 if (this.WithdrawMoney(Summ))
                 {
-                    (toAccount as IAccountCovariant<S, BaseAccount<S>>).PutMoney(Summ);
+                    (toAccount as IAccountCovariant<T, BaseAccount<T>>).PutMoney(Summ);
                 }
             }
 
@@ -62,7 +62,7 @@ namespace BankClientOperation
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        protected virtual bool Set<S>(ref S field, S value, [CallerMemberName] string PropertyName = null)
         {
             if (Equals(field, value)) return false;
             field = value;

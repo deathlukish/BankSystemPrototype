@@ -168,7 +168,7 @@
             </GroupBox>
             <GroupBox  Grid.Row="2" Grid.Column="1" Margin="5" Header="Перевод между счетами">
                 <UniformGrid  Columns="2">
-                    <TextBox  PreviewTextInput="NumberValidationTextBox" Margin="2" Text="{Binding ReplenishSum}"></TextBox>
+                    <TextBox  PreviewTextInput="NumberValidationTextBox" Margin="2" Text="{Binding TransSum, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button  Margin="2" Content="Перевести" Command="{Binding MoneyTransfer}"/>
                     <TextBlock Text="Со счета"></TextBlock>
                     <TextBlock Text="{Binding SelectedAccountFrom.NumAccount}"></TextBlock>
