@@ -29,7 +29,34 @@ namespace BankClientOperation
         { 
         
         }
+        public bool WithdrawMoney(float moneyCount)
+        {
+            if (Math.Abs(moneyCount) <= _Balance)
+            {
+                Balance -= Math.Abs(moneyCount);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+        }
+        
+
+        public void TransAccountToAccount(BaseAccount<S> toAccount, float Summ)
+        {
+           
+            if (toAccount != null)
+            {
+                if (this.WithdrawMoney(Summ))
+                {
+                    (toAccount as IAccountCovariant<S, BaseAccount<S>>).PutMoney(Summ);
+                }
+            }
+
+            
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
         {
@@ -42,11 +69,6 @@ namespace BankClientOperation
             OnpropertyChanged(PropertyName);
             return true;
 
-        }
-
-        public void TransAccountToAccount(BaseAccount<S> toAccount, float Summ)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -16,9 +16,6 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        // private ObservableCollection<T> _ClientsTo = new();
-        //private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
-        //private ObservableCollection<BaseAccount<T>> _AccountsTo;
         private BaseAccount<T> _SelectedAccountFrom;
         private BaseAccount<T> _SelectedAccountTo;
         private T _SelectedClientFrom;
@@ -31,6 +28,7 @@ namespace BankClientOperation
         public ICommand CloseAccount { get; }
         public ICommand DelClientCommand { get; }
         public ICommand ReplanishAccount { get; }
+        public ICommand MoneyTransfer { get; }
         private void OnAddClient(object p)
         {
 
@@ -76,9 +74,14 @@ namespace BankClientOperation
             _Repository.SaveBase();
         }
         private void OnReplanishAccount(object p)
-        {
-                      
+        {                     
             PutMoneyToAccount(p as IAccountCovariant<T, BaseAccount<T>>);
+        }
+        private void OnMoneyTransfer(object p)
+        {
+
+            TransAccountToAccount(SelectedAccountFrom, SelectedAccountTo);
+
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
@@ -114,6 +117,7 @@ namespace BankClientOperation
             if (ReplenishSum > 0 && SelectedAccountFrom != null) return true;
             else return false;
         }
+        private bool CanMoneyTransfer(object p) => true;
         public MainWindowViewModel()
         {
             GetClients();
@@ -124,6 +128,8 @@ namespace BankClientOperation
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
             ReplanishAccount = new RelayCommand(OnReplanishAccount, CanReplanishAccount);
+            MoneyTransfer = new RelayCommand(OnMoneyTransfer, CanMoneyTransfer);
+
         }
 
         private bool CanCloseAccount(object p)
@@ -149,10 +155,8 @@ namespace BankClientOperation
         {
             get => _SelectedClientFrom;
             set
-            {
-                Set(ref _SelectedClientFrom, value);
-               // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
-             
+            {              
+                Set(ref _SelectedClientFrom, value);                  
             }
 
 
@@ -163,12 +167,6 @@ namespace BankClientOperation
             get => _SelectedClientTo;
             set => Set(ref _SelectedClientTo, value);
         }
-        //public ObservableCollection<T> ClientsTo
-        //{
-        //    get => _ClientsTo;
-        //    set => Set(ref _ClientsTo, value);
-        //}
-
 
         public BaseAccount<T> SelectedAccountTo
         {
@@ -182,6 +180,7 @@ namespace BankClientOperation
 
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
+               
                 _Clients.Add((T)a);
                 
             }
