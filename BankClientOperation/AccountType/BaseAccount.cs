@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace BankClientOperation
 {
     public abstract class BaseAccount<T> : INotifyPropertyChanged, IAccountContrVariant<T, BaseAccount<T>>
-        where T:BaseClient
-        
+        where T:BaseClient        
     {
         private float _Balance;
         public ulong NumAccount { get; set; }
@@ -23,8 +22,6 @@ namespace BankClientOperation
             set => Set(ref _Balance, value);
         }
         public bool IsActive { get; set; } = true;
-
-
         public BaseAccount()
         { 
         
@@ -41,21 +38,16 @@ namespace BankClientOperation
                 return false;
             }
 
-        }
-        
-
+        }       
         public void TransAccountToAccount(BaseAccount<T> toAccount, float Summ)
-        {
-           
+        {          
             if (toAccount != null)
             {
                 if (this.WithdrawMoney(Summ))
                 {
                     (toAccount as IAccountCovariant<T, BaseAccount<T>>).PutMoney(Summ);
                 }
-            }
-
-            
+            }            
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)

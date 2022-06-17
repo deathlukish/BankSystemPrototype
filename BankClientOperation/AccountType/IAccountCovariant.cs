@@ -10,7 +10,6 @@ namespace BankClientOperation.AccountType
         where R: BaseClient
         where T: BaseAccount<R>
     {
-       // T GetValue { get; }
         public void PutMoney(float Money);
     }
 }
