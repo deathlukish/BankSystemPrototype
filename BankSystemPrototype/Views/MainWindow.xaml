@@ -8,9 +8,6 @@
         xmlns:clientType="clr-namespace:BankClientOperation;assembly=BankClientOperation"
         xmlns:vm ="clr-namespace:BankSystemPrototype.ViewModels"
         Height="550" Width="800">
-    <!--<Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -18,7 +15,6 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -30,7 +26,6 @@
                 <TextBlock Text="ыввы"></TextBlock>
             </UniformGrid>
         </StatusBar>
-        
         <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"></RowDefinition>
@@ -38,9 +33,9 @@
             </Grid.RowDefinitions>
             <ComboBox Grid.Row="0" Grid.Column="0" Margin="5" x:Name="ClientType" SelectionChanged="ClientType_SelectionChanged">
                 <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}"></TextBlock>
-                </DataTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <ListBox ItemsSource="{Binding Clients}" 
@@ -49,54 +44,13 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                        <TextBlock Text="{Binding IdClient}"></TextBlock>
-                        <TextBlock Text="{Binding First}"></TextBlock>
+                            <TextBlock Text="{Binding IdClient}"></TextBlock>
+                            <TextBlock Text="{Binding First}"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <!--<ListBox.Resources>
-                    <DataTemplate DataType="{x:Type clientType:EntityClient}">
-                        <TextBlock Text="{Binding First}" Foreground="Black"></TextBlock>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type clientType:RegularClient}">
-                        <TextBlock Text="{Binding First}" Foreground="Cyan" ></TextBlock>
-                    </DataTemplate>
-                </ListBox.Resources>-->
-                <!--<ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding First}" TextBlock.FontSize="10"></TextBlock>
-                            <TextBlock Text="{Binding  Middle}" TextBlock.FontSize="15"></TextBlock>
-                            <TextBlock Text="{Binding  Last}" TextBlock.FontSize="15"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                <ListBox.ItemTemplate>-->
-                
-                <!--<DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Last}" TextBlock.FontSize="20"></TextBlock>
-                        <TextBlock Text="{Binding Middle}" TextBlock.FontSize="15"></TextBlock>
-                        <TextBlock Text="{Binding First}" TextBlock.FontSize="10"></TextBlock>
-                    </StackPanel>-->
-                <!--
-                </DataTemplate>-->
-                <!--</ListBox.ItemTemplate>-->
-            <!--</ListBox>-->
         </Grid>
-       
-        <!--<DataGrid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" 
-                  ItemsSource="{Binding Clients}" 
-                  SelectedItem="{Binding Path=SelectedClient}"
-                  Margin="5"
-                  GridLinesVisibility ="None">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Path=First}" Width="90" />
-                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Middle}" Width="80" />
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Last}" Width="50" />
-            </DataGrid.Columns>
-            </DataGrid>-->
-
         <ListBox ItemsSource="{Binding Path=Clients}" SelectedItem="{Binding SelectedClientTo}" 
                  x:Name="ListClientTo" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Margin="5,5,5,5">
             <ListBox.ItemTemplate>
@@ -126,22 +80,12 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <!--<TextBlock Foreground="Red" Text="НеДепозитный счет" TextBlock.FontSize="10"></TextBlock>-->
                         <TextBlock Foreground="Red" Text="{Binding NumAccount}" TextBlock.FontSize="15"></TextBlock>
                         <TextBlock Foreground="Red" Text="{Binding Balance}" TextBlock.FontSize="15"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <!--<DataTemplate DataType="{x:Type clientType:Deposite}" >
-                    <StackPanel>
-                        <TextBlock Foreground="Green" Text="Депозитный счет" TextBlock.FontSize="10"></TextBlock>
-                        <TextBlock Foreground="Green" Text="{Binding NumAccount}" TextBlock.FontSize="15"></TextBlock>
-                        <TextBlock Foreground="Green" Text="{Binding Balance}" TextBlock.FontSize="15"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>-->
-            <!--</ListBox.Resources>-->
         </ListBox>
-
         <GridSplitter Grid.Column="0" Grid.RowSpan="4" HorizontalAlignment="Right" Width="3" MinHeight="100"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.RowSpan="4" Width="3"  MinHeight="100"></GridSplitter>
         <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="4">
@@ -151,7 +95,7 @@
                 <RowDefinition Height="30*"></RowDefinition>
                 <RowDefinition Height="15*"></RowDefinition>
                 <RowDefinition Height="50*"></RowDefinition>
-                
+
             </Grid.RowDefinitions>
             <GroupBox  Grid.Row="0" Grid.Column="1" Margin="5" Header="Поплнение счета">
                 <UniformGrid  Columns="2">
@@ -193,29 +137,8 @@
                     <TextBlock Margin="2" Text="Город"></TextBlock>
                     <TextBox Margin="2" Text="{Binding ElementName=ListClientsFrom, Path=SelectedItem.Town}"/>
                     <Button Margin="2" Content="Сохранить" Grid.Column="3" Command="{Binding SaveChange}"></Button>
-                   
                 </UniformGrid>
             </Expander>
-            <!--<Expander  Grid.Row="4" Grid.Column="1" Grid.RowSpan="3" Margin="5" Header="Редактировать клиента">
-                <UniformGrid  Columns="2">
-                    <TextBlock Margin="2" Text="Имя"></TextBlock>
-                    <TextBox Margin="2"/>
-                    <TextBlock Margin="2" Text="Отчество"></TextBlock>
-                    <TextBox Margin="2"/>
-                    <TextBlock Margin="2" Text="Фамилия"></TextBlock>
-                    <TextBox Margin="2"/>
-                    <TextBlock Margin="2" Text="Город"></TextBlock>
-                    <TextBox Margin="2"/>
-                    <TextBlock Margin="2" Text="Отдел"></TextBlock>
-                    <ComboBox Margin="2"></ComboBox>
-                    <Button Margin="2" Content="Добавить" Grid.Column="1" Command="{Binding AddAccount}"></Button>
-                    <Button Margin="2" Content="Удалить" Command="{Binding AddAccount}"/>
-                </UniformGrid>
-            </Expander>-->
         </Grid>
-        
-        
-       
     </Grid>
-
 </Window>

@@ -1,9 +1,6 @@
 ﻿using BankClientOperation.AccountType;
-using BankClientOperation.BaseLoad;
 using BankClientOperation.ClientType;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BankClientOperation
