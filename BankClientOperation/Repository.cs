@@ -1,9 +1,6 @@
 ﻿using BankClientOperation.AccountType;
-using BankClientOperation.BaseLoad;
 using BankClientOperation.ClientType;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace BankClientOperation
@@ -19,9 +16,7 @@ namespace BankClientOperation
             _ClientsBase = JsonBase.LoadDb(_Path);
             if (_ClientsBase == null) _ClientsBase = new List<BaseClient>();
 
-
         }
-
         public List<BaseClient> GetClient()
         {
             List<BaseClient> ObsClients = new();
@@ -44,7 +39,6 @@ namespace BankClientOperation
             {
       
                 case ClientTypeEnum.Entity:
-
                     _ClientsBase.Add(new EntityClient(First, Middle, Last, Town));
                     break;
                 case ClientTypeEnum.Regular:

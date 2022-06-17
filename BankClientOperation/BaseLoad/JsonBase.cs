@@ -1,18 +1,16 @@
-﻿using BankClientOperation.BaseLoad;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
     internal static class JsonBase 
     {
-        
+        /// <summary>
+        /// Сохранить базу
+        /// </summary>
+        /// <param name="baseClients"></param>
+        /// <param name="Path"></param>
         public static void SaveBase(List<BaseClient> baseClients, string Path)
         {
             List<BaseClient> clients = new();
@@ -26,10 +24,12 @@ namespace BankClientOperation
             {
                 fs.WriteLine(jsonString);
             }
-        }
-
-    
-
+        }   
+        /// <summary>
+        /// Загрузить базу
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <returns></returns>
         public static List<BaseClient> LoadDb(string Path)
         {
             if (!File.Exists(Path))

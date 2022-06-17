@@ -16,14 +16,13 @@ namespace BankClientOperation
     {
         Repository _Repository = new Repository("./DB.json");
         private ObservableCollection<T> _Clients = new();
-        // private ObservableCollection<T> _ClientsTo = new();
-        //private ObservableCollection<BaseAccount<T>> _AccountsFrom = new();
-        //private ObservableCollection<BaseAccount<T>> _AccountsTo;
         private BaseAccount<T> _SelectedAccountFrom;
         private BaseAccount<T> _SelectedAccountTo;
         private T _SelectedClientFrom;
         private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
+        private float _TransSum;
+        #region Свойтва
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
         public ICommand OpenNoDeposite { get; }
@@ -31,6 +30,54 @@ namespace BankClientOperation
         public ICommand CloseAccount { get; }
         public ICommand DelClientCommand { get; }
         public ICommand ReplanishAccount { get; }
+        public ICommand MoneyTransfer { get; }
+        public BaseAccount<T> SelectedAccountFrom
+        {
+
+            get => _SelectedAccountFrom;
+            set => Set(ref _SelectedAccountFrom, value);
+        }
+        public ObservableCollection<T> Clients
+        {
+            get => _Clients;
+            set => Set(ref _Clients, value);
+        }
+        public T SelectedClientFrom
+        {
+            get => _SelectedClientFrom;
+            set
+            {
+                Set(ref _SelectedClientFrom, value);
+            }
+
+        }
+        public BaseClient SelectedClientTo
+        {
+            get => _SelectedClientTo;
+            set => Set(ref _SelectedClientTo, value);
+        }
+        public BaseAccount<T> SelectedAccountTo
+        {
+            get => _SelectedAccountTo;
+            set => Set(ref _SelectedAccountTo, value);
+        }
+        public float ReplenishSum
+        {
+            get => _ReplenishSum;
+            set => Set(ref _ReplenishSum, value);
+
+        }
+        public float TransSum
+        {
+            get => _TransSum;
+            set => Set(ref _TransSum, value);
+
+        }
+        #endregion
+        /// <summary>
+        /// Метод вызова окна добавления клиента
+        /// </summary>
+        /// <param name="p"></param>
         private void OnAddClient(object p)
         {
 
@@ -48,37 +95,90 @@ namespace BankClientOperation
             }
 
         }
+        /// <summary>
+        /// Метод открытия Депозитного счета
+        /// </summary>
+        /// <param name="p"></param>
         private void OnOpenDeposite(object p)
         {
             SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
             _Repository.SaveBase();
 
         }
+        /// <summary>
+        /// Метод открытия недепозитного счета
+        /// </summary>
+        /// <param name="p"></param>
         private void OnOpenNoDeposite(object p)
         {
             SelectedClientFrom.AddAccount(new NoDeposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
             _Repository.SaveBase();
         }
+        /// <summary>
+        /// Метод сохранения изменения клиента
+        /// </summary>
+        /// <param name="p"></param>
         private void OnSaveChange(object p)
         {
             _Repository.SaveBase();
         }
-
+        /// <summary>
+        /// Закрытие счета
+        /// </summary>
+        /// <param name="p"></param>
         private void OnCloseAccount(object p)
         {
-          //  _Repository.CloseAccount(SelectedAccountFrom.NumAccount);
-           // AccountsFrom = _Repository.GetAccounts(SelectedClientFrom.IdClient);
 
+            SelectedClientFrom.Accounts.Remove((BaseAccount<T>)p);
+           
         }
+        /// <summary>
+        /// Удаление клиента
+        /// </summary>
+        /// <param name="p"></param>
         private void OnDelClientCommand(object p)
         {
             _Clients[_Clients.IndexOf(SelectedClientFrom)].IsActive = false;
             _Repository.SaveBase();
         }
+        /// <summary>
+        /// Пополнение счета
+        /// </summary>
+        /// <param name="p"></param>
         private void OnReplanishAccount(object p)
         {
-                      
-            PutMoneyToAccount(p as IAccountCovariant<T, BaseAccount<T>>);
+
+            if (p as IAccountCovariant<T, BaseAccount<T>> != null)
+            {
+                (p as IAccountCovariant<T, BaseAccount<T>>).PutMoney(ReplenishSum);
+                ReplenishSum = 0.0F;
+            }
+            _Repository.SaveBase();
+
+        }
+        /// <summary>
+        /// Перевод между счетами
+        /// </summary>
+        /// <param name="p"></param>
+        private void OnMoneyTransfer(object p)
+        {
+            (SelectedAccountFrom as IAccountContrVariant<T, BaseAccount<T>>).TransAccountToAccount((BaseAccount<T>)SelectedAccountTo, TransSum);
+            TransSum = 0.0F;
+            _Repository.SaveBase();
+        }
+        /// <summary>
+        /// Получить клиентов из репозитория
+        /// </summary>
+        private void GetClients()
+        {
+
+            foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
+            {
+
+                _Clients.Add((T)a);
+
+            }
+
         }
         private bool CanAddClient(object p) => true;
         private bool CanOpenDeposite(object p)
@@ -114,6 +214,22 @@ namespace BankClientOperation
             if (ReplenishSum > 0 && SelectedAccountFrom != null) return true;
             else return false;
         }
+        private bool CanMoneyTransfer(object p)
+        {
+            if (SelectedAccountFrom != null && SelectedAccountTo != null && TransSum != 0) return true;
+            else return false;
+        
+        }
+        private bool CanCloseAccount(object p)
+        {
+            if (_SelectedAccountFrom != null && SelectedAccountFrom.Balance == 0) return true;
+
+            else return false;
+
+        }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public MainWindowViewModel()
         {
             GetClients();
@@ -124,92 +240,10 @@ namespace BankClientOperation
             CloseAccount = new RelayCommand(OnCloseAccount, CanCloseAccount);
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
             ReplanishAccount = new RelayCommand(OnReplanishAccount, CanReplanishAccount);
-        }
-
-        private bool CanCloseAccount(object p)
-        {
-            if (_SelectedAccountFrom != null && SelectedAccountFrom.Balance==0) return true;
-
-            else return false;
-        
-        }
-        public BaseAccount<T> SelectedAccountFrom
-        {
-
-            get => _SelectedAccountFrom;
-            set => Set(ref _SelectedAccountFrom, value);
-        }
-
-        public ObservableCollection<T> Clients
-        {
-            get => _Clients;
-            set => Set(ref _Clients, value);
-        }
-        public T SelectedClientFrom
-        {
-            get => _SelectedClientFrom;
-            set
-            {
-                Set(ref _SelectedClientFrom, value);
-               // AccountsFrom = _Repository.GetAccounts(_SelectedClientFrom.IdClient);
-             
-            }
-
+            MoneyTransfer = new RelayCommand(OnMoneyTransfer, CanMoneyTransfer);
 
         }
-
-        public BaseClient SelectedClientTo
-        {
-            get => _SelectedClientTo;
-            set => Set(ref _SelectedClientTo, value);
-        }
-        //public ObservableCollection<T> ClientsTo
-        //{
-        //    get => _ClientsTo;
-        //    set => Set(ref _ClientsTo, value);
-        //}
-
-
-        public BaseAccount<T> SelectedAccountTo
-        {
-            get => _SelectedAccountTo;
-            set => Set(ref _SelectedAccountTo, value);
-
-
-        }
-        private void GetClients()
-        {
-
-            foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
-            {
-                _Clients.Add((T)a);
-                
-            }
-
-        }
-
-        public float ReplenishSum
-        { 
-            get => _ReplenishSum;
-            set => Set(ref _ReplenishSum, value);
-
-        }
-
-        private void PutMoneyToAccount(IAccountCovariant<T, BaseAccount<T>> account)
-        {
-            if (account != null)
-            {
-                account.PutMoney(ReplenishSum);
-                ReplenishSum = 0.0F;
-            }
-            _Repository.SaveBase();
-        }
-        private void TransAccountToAccount(IAccountContrVariant<T, BaseAccount<T>> fromAccount, BaseAccount<T> toAccount)
-        {
-
-            fromAccount.TransAccountToAccount(toAccount, ReplenishSum);
-            _Repository.SaveBase();
-        }
+          
 
     }
 }

@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace BankClientOperation
 {
-    public abstract class BaseAccount<S> : INotifyPropertyChanged, IAccountContrVariant<S, BaseAccount<S>>
-        where S:BaseClient
-        
+    public abstract class BaseAccount<T> : INotifyPropertyChanged, IAccountContrVariant<T, BaseAccount<T>>
+        where T:BaseClient        
     {
         private float _Balance;
         public ulong NumAccount { get; set; }
@@ -23,30 +22,45 @@ namespace BankClientOperation
             set => Set(ref _Balance, value);
         }
         public bool IsActive { get; set; } = true;
-
-
         public BaseAccount()
         { 
         
         }
+        public bool WithdrawMoney(float moneyCount)
+        {
+            if (Math.Abs(moneyCount) <= _Balance)
+            {
+                Balance -= Math.Abs(moneyCount);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+        }       
+        public void TransAccountToAccount(BaseAccount<T> toAccount, float Summ)
+        {          
+            if (toAccount != null)
+            {
+                if (this.WithdrawMoney(Summ))
+                {
+                    (toAccount as IAccountCovariant<T, BaseAccount<T>>).PutMoney(Summ);
+                }
+            }            
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        protected virtual bool Set<S>(ref S field, S value, [CallerMemberName] string PropertyName = null)
         {
             if (Equals(field, value)) return false;
             field = value;
             OnpropertyChanged(PropertyName);
             return true;
 
-        }
-
-        public void TransAccountToAccount(BaseAccount<S> toAccount, float Summ)
-        {
-            throw new NotImplementedException();
         }
     }
 }
