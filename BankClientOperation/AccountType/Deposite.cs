@@ -11,14 +11,14 @@ namespace BankClientOperation
         where T: BaseClient
     {
         public Deposite() : base() { }              
-        public Deposite(Guid OwnerId, ulong Num, float Balance)
+        public Deposite(ulong Num, float Balance)
         {            
-            this.OwnerId = OwnerId;
+            
             this.NumAccount = Num;
             this.Balance = Balance;
         }
 
-        public Deposite(Guid guid,ulong Num) : this(guid,Num, 0)
+        public Deposite(ulong Num) : this(Num, 0)
         {
 
             this.IsActive = true;
