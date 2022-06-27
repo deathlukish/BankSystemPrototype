@@ -17,6 +17,10 @@ namespace BankClientOperation
             if (_ClientsBase == null) _ClientsBase = new List<BaseClient>();
 
         }
+        /// <summary>
+        /// Получить всех клиентов
+        /// </summary>
+        /// <returns></returns>
         public List<BaseClient> GetClient()
         {
             List<BaseClient> ObsClients = new();

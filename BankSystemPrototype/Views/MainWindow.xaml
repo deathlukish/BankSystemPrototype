@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <StatusBar Grid.Row="4" Grid.ColumnSpan="3">
             <UniformGrid>
-                <TextBlock Text="ыввы"></TextBlock>
+                <TextBlock Text="{Binding MessageText}"></TextBlock>
             </UniformGrid>
         </StatusBar>
         <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
