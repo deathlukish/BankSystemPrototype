@@ -34,6 +34,7 @@ namespace BankClientOperation
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            _messageAction?.Invoke("Что-то изменилось");
         }
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {

@@ -167,14 +167,14 @@ namespace BankClientOperation
             _Repository.SaveBase();
         }
         /// <summary>
-        /// Получить клиентов из репозитория
+        /// Получить клиентов из репозитория и передаем делегат для события
         /// </summary>
         private void GetClients()
         {
 
             foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
-
+                a.MessageAction = ShowMessage;
                 _Clients.Add((T)a);
 
             }
@@ -226,6 +226,10 @@ namespace BankClientOperation
 
             else return false;
 
+        }
+        public void ShowMessage(string textToShow)
+        {
+            MessageBox.Show(textToShow);
         }
         /// <summary>
         /// Конструктор
