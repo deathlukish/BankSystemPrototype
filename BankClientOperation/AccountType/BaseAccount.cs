@@ -1,4 +1,5 @@
 ﻿using BankClientOperation.AccountType;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,14 +14,19 @@ namespace BankClientOperation
     public abstract class BaseAccount<T> : INotifyPropertyChanged, IAccountContrVariant<T, BaseAccount<T>>
         where T:BaseClient        
     {
-        delegate void AccountHandler(string message);
-        event AccountHandler Notify;
+        protected Action<string> _messageAction;
         private float _Balance;
         public ulong NumAccount { get; set; }
         public float Balance 
         { 
             get => _Balance; 
             set => Set(ref _Balance, value);
+        }
+        [JsonIgnore]
+        public Action<string> MessageAction
+        {
+            get => _messageAction;
+            set => _messageAction = value;
         }
         public bool IsActive { get; set; } = true;
         public BaseAccount()
@@ -32,7 +38,6 @@ namespace BankClientOperation
             if (Math.Abs(moneyCount) <= _Balance)
             {
                 Balance -= Math.Abs(moneyCount);
-                Notify?.Invoke("Произошло действие");
                 return true;
             }
             else

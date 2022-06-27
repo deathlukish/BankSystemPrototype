@@ -1,8 +1,5 @@
-﻿
-using BankClientOperation.AccountType;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -15,13 +12,24 @@ namespace BankClientOperation
         private string _Last;
         private string _Town;
         private bool _IsActive;
+        protected Action<string> _messageAction;
         public Guid IdClient { get; set; }
         public string First { get => _First; set => Set(ref _First, value); }
         public string Middle { get => _Middle; set => Set(ref _Middle, value); }
         public string Last { get => _Last; set => Set(ref _Last, value); }
-        public  string Town { get => _Town; set => Set(ref _Town, value); }
+        public string Town { get => _Town; set => Set(ref _Town, value); }
         public bool IsActive { get => _IsActive; set => Set(ref _IsActive, value); }
         public virtual bool IsCanChange { get; set; } = true;
+        /// <summary>
+        /// Делегат для события
+        /// </summary>
+        [JsonIgnore]        
+        public Action<string> MessageAction
+        {
+            get => _messageAction;
+            set => _messageAction = value;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
         {
