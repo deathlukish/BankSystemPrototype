@@ -22,13 +22,14 @@ namespace BankClientOperation
         {
 
             this.IsActive = true;
-
+            
 
         }
 
         public void PutMoney(float Money)
         {
             Balance += Money;
+            _messageAction?.Invoke($"На счет {NumAccount} внесено {Money}");
         }
     }
 }

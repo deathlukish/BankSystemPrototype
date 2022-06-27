@@ -22,6 +22,7 @@ namespace BankClientOperation
         private BaseClient _SelectedClientTo;
         private float _ReplenishSum;
         private float _TransSum;
+        private string _MessageText;
         #region Свойтва
         public ICommand AddClientCommand { get; }
         public ICommand OpenDeposite { get; }
@@ -72,6 +73,11 @@ namespace BankClientOperation
             get => _TransSum;
             set => Set(ref _TransSum, value);
 
+        }
+        public string MessageText
+        {
+            get => _MessageText;
+            set => Set(ref _MessageText, value);
         }
         #endregion
         /// <summary>
@@ -167,7 +173,7 @@ namespace BankClientOperation
             _Repository.SaveBase();
         }
         /// <summary>
-        /// Получить клиентов из репозитория и передаем делегат для события
+        /// Получить клиентов из репозитория и передаем метод для события
         /// </summary>
         private void GetClients()
         {
@@ -231,9 +237,13 @@ namespace BankClientOperation
             else return false;
 
         }
+        /// <summary>
+        /// Метод для передачи в качестве делегата
+        /// </summary>
+        /// <param name="textToShow"></param>
         public void ShowMessage(string textToShow)
         {
-            MessageBox.Show(textToShow);
+            MessageText = textToShow;            
         }
         /// <summary>
         /// Конструктор

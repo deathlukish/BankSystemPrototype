@@ -64,6 +64,7 @@ namespace BankClientOperation
                 if (this.WithdrawMoney(Summ))
                 {
                     (toAccount as IAccountCovariant<T, BaseAccount<T>>).PutMoney(Summ);
+                    _messageAction?.Invoke($"{Summ} переведено со счета {this.NumAccount} на счет {toAccount.NumAccount}");
                 }
             }            
         }
