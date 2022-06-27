@@ -33,6 +33,11 @@ namespace BankClientOperation
         { 
         
         }
+        /// <summary>
+        /// Снятие со счета
+        /// </summary>
+        /// <param name="moneyCount"></param>
+        /// <returns></returns>
         public bool WithdrawMoney(float moneyCount)
         {
             if (Math.Abs(moneyCount) <= _Balance)
@@ -42,10 +47,16 @@ namespace BankClientOperation
             }
             else
             {
+                _messageAction?.Invoke($"Недостаточно средств на счете");
                 return false;
             }
 
         }       
+        /// <summary>
+        /// Перевод между счетами
+        /// </summary>
+        /// <param name="toAccount"></param>
+        /// <param name="Summ"></param>
         public void TransAccountToAccount(BaseAccount<T> toAccount, float Summ)
         {          
             if (toAccount != null)
@@ -56,6 +67,8 @@ namespace BankClientOperation
                 }
             }            
         }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnpropertyChanged([CallerMemberName] string PropertyName = null)
         {

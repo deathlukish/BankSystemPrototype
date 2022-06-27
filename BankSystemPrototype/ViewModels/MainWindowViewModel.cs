@@ -172,10 +172,14 @@ namespace BankClientOperation
         private void GetClients()
         {
 
-            foreach (var a in _Repository.GetClient().Where(e => e is T && e.IsActive))
+            foreach (T client in _Repository.GetClient().Where(e => e is T && e.IsActive))
             {
-                a.MessageAction = ShowMessage;
-                _Clients.Add((T)a);
+                client.MessageAction = ShowMessage;
+                foreach (var bankAccount in client.Accounts)
+                {
+                    bankAccount.MessageAction = ShowMessage;
+                }
+                _Clients.Add((T)client);
 
             }
 
