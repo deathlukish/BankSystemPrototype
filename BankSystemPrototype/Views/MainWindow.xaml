@@ -68,7 +68,6 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="BaseAccount">
                     <StackPanel>
-                        <TextBlock Text="{Binding OwnerId}" TextBlock.FontSize="10"></TextBlock>
                         <TextBlock Text="{Binding  Balance}" TextBlock.FontSize="15"></TextBlock>
                         <TextBlock Text="{Binding  NumAccount}" TextBlock.FontSize="15"></TextBlock>
                     </StackPanel>

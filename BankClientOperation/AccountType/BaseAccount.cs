@@ -13,9 +13,10 @@ namespace BankClientOperation
     public abstract class BaseAccount<T> : INotifyPropertyChanged, IAccountContrVariant<T, BaseAccount<T>>
         where T:BaseClient        
     {
+        delegate void AccountHandler(string message);
+        event AccountHandler Notify;
         private float _Balance;
         public ulong NumAccount { get; set; }
-        public Guid OwnerId { get; set; }
         public float Balance 
         { 
             get => _Balance; 
@@ -31,6 +32,7 @@ namespace BankClientOperation
             if (Math.Abs(moneyCount) <= _Balance)
             {
                 Balance -= Math.Abs(moneyCount);
+                Notify?.Invoke("Произошло действие");
                 return true;
             }
             else

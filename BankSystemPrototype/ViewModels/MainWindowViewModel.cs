@@ -101,7 +101,7 @@ namespace BankClientOperation
         /// <param name="p"></param>
         private void OnOpenDeposite(object p)
         {
-            SelectedClientFrom.AddAccount(new Deposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
+            SelectedClientFrom.AddAccount(new Deposite<T>(_Repository.GenId()));
             _Repository.SaveBase();
 
         }
@@ -111,7 +111,7 @@ namespace BankClientOperation
         /// <param name="p"></param>
         private void OnOpenNoDeposite(object p)
         {
-            SelectedClientFrom.AddAccount(new NoDeposite<T>(SelectedClientFrom.IdClient, _Repository.GenId()));
+            SelectedClientFrom.AddAccount(new NoDeposite<T>(_Repository.GenId()));
             _Repository.SaveBase();
         }
         /// <summary>
@@ -241,6 +241,7 @@ namespace BankClientOperation
             DelClientCommand = new RelayCommand(OnDelClientCommand, CanDelClientCommand);
             ReplanishAccount = new RelayCommand(OnReplanishAccount, CanReplanishAccount);
             MoneyTransfer = new RelayCommand(OnMoneyTransfer, CanMoneyTransfer);
+
 
         }
           
