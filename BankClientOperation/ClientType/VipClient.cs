@@ -31,11 +31,8 @@ namespace BankClientOperation
         public void AddAccount(BaseAccount<VipClient> account)
         {
             _Accounts.Add(account);
+            _messageAction?.Invoke($"Открыт счет {account.NumAccount} для клиента {this.IdClient}");
         }
 
-        public void RemoveAccount(BaseAccount<VipClient> account)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

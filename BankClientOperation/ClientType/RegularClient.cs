@@ -33,11 +33,8 @@ namespace BankClientOperation
         public void AddAccount(BaseAccount<RegularClient> account)
         {
             _Accounts.Add(account);
+            _messageAction?.Invoke($"Открыт счет {account.NumAccount} для клиента {this.IdClient}");
         }
 
-        public void RemoveAccount(BaseAccount<RegularClient> account)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
