@@ -58,7 +58,8 @@ namespace BankClientOperation
         /// <param name="toAccount"></param>
         /// <param name="Summ"></param>
         public void TransAccountToAccount(BaseAccount<T> toAccount, float Summ)
-        {          
+        {
+            if (Summ >= 10000) throw new ExcessSumExeption();
             if (toAccount != null)
             {
                 if (this.WithdrawMoney(Summ))

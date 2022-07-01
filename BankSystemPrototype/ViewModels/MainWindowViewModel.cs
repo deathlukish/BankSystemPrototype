@@ -168,7 +168,14 @@ namespace BankClientOperation
         /// <param name="p"></param>
         private void OnMoneyTransfer(object p)
         {
-            (SelectedAccountFrom as IAccountContrVariant<T, BaseAccount<T>>).TransAccountToAccount((BaseAccount<T>)SelectedAccountTo, TransSum);
+            try
+            {
+                (SelectedAccountFrom as IAccountContrVariant<T, BaseAccount<T>>).TransAccountToAccount((BaseAccount<T>)SelectedAccountTo, TransSum);
+            }
+            catch (ExcessSumExeption e)
+            {
+                MessageBox.Show(e.Message);
+            }
             TransSum = 0.0F;
             _Repository.SaveBase();
         }
